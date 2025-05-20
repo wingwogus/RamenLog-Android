@@ -154,7 +154,6 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             VerifiedNicknameRequest req = new VerifiedNicknameRequest(
                     nickname,
                     response -> {
