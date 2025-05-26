@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDFDFB"
     android:paddingHorizontal="32dp"
-    android:id="@+id/main">
+    tools:context=".RegisterActivity3">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -21,10 +23,10 @@
         android:layout_marginTop="15dp"/>
 
     <TextView
-        android:id="@+id/tvEmailLabel"
+        android:id="@+id/tvNicknameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="이메일"
+        android:text="닉네임"
         android:textColor="#000000"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -33,82 +35,42 @@
         android:layout_marginTop="60dp" />
 
     <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#CCCCCC"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmailLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnSendCode"
-        android:layout_marginEnd="8dp" />
-
-    <Button
-        android:id="@+id/btnSendCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="인증번호 발송"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:backgroundTint="#FFF3E0"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="@+id/etEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/etEmail" />
-
-    <TextView
-        android:id="@+id/tvCodeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="인증번호"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp" />
-
-    <EditText
-        android:id="@+id/etCode"
+        android:id="@+id/etNickname"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:backgroundTint="#CCCCCC"
         android:padding="12dp"
-        android:inputType="number"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/tvCodeLabel"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/tvNicknameLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnVerifyCode"
+        app:layout_constraintEnd_toStartOf="@+id/btnCheckDuplicate"
         android:layout_marginEnd="8dp" />
 
     <Button
-        android:id="@+id/btnVerifyCode"
+        android:id="@+id/btnCheckDuplicate"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="확인"
+        android:text="중복확인"
         android:textSize="12sp"
         android:textStyle="bold"
         android:backgroundTint="#FFF3E0"
         android:textColor="#000000"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@+id/etCode"
+        app:layout_constraintTop_toTopOf="@+id/etNickname"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/etCode" />
+        app:layout_constraintBottom_toBottomOf="@+id/etNickname" />
 
     <Button
         android:id="@+id/btnNext"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:text="다음"
+        android:text="회원가입"
         android:textSize="16sp"
         android:textStyle="bold"
         android:backgroundTint="#FFF3E0"
         android:textColor="#000000"
         android:enabled="false"
-        app:layout_constraintTop_toBottomOf="@+id/btnVerifyCode"
+        app:layout_constraintTop_toBottomOf="@+id/btnCheckDuplicate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

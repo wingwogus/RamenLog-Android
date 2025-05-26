@@ -13,22 +13,19 @@ public class SignUpRequest extends JsonObjectRequest {
     public SignUpRequest(String email,
                          String password,
                          String nickname,
-                         String phoneNumber,
                          Response.Listener<JSONObject> listener,
                          Response.ErrorListener errorListener) {
-        super(Method.POST, URL, buildRequestBody(email, password, nickname, phoneNumber), listener, errorListener);
+        super(Method.POST, URL, buildRequestBody(email, password, nickname), listener, errorListener);
     }
 
     private static JSONObject buildRequestBody(String email,
                                                String password,
-                                               String nickname,
-                                               String phoneNumber) {
+                                               String nickname) {
         JSONObject json = new JSONObject();
         try {
             json.put("email", email);
             json.put("password", password);
             json.put("nickname", nickname);
-            json.put("phoneNumber", phoneNumber);
         } catch (Exception e) {
             e.printStackTrace();
         }
