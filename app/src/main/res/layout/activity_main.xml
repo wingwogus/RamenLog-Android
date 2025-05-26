@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,28 +25,31 @@
             android:gravity="center"
             android:text="라멘로그"
             android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             />
     </androidx.appcompat.widget.Toolbar>
 
 
-    <!-- 2) Scrollable Content -->
-    <ScrollView
+    <!-- 2) Content -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scroll_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:overScrollMode="never"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar_home"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
             <!-- 2-1) 추천 PICK 라벨 -->
             <TextView
@@ -55,10 +58,10 @@
                 android:layout_height="wrap_content"
                 android:text="이것도 먹어봐"
                 android:textColor="@android:color/black"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:layout_marginTop="30dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
             <!-- 2-2) 추천 PICK 타이틀 -->
             <TextView
@@ -67,10 +70,10 @@
                 android:layout_height="wrap_content"
                 android:text="라멘 추천 PICK"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/label_recommend"
-                app:layout_constraintStart_toStartOf="@id/label_recommend"
+                app:layout_constraintLeft_toLeftOf="@+id/label_recommend"
                 android:layout_marginTop="4dp"/>
 
             <!-- 2-3) 추천 CARD -->
@@ -82,26 +85,25 @@
                 android:backgroundTint="#FAF4EC"
                 app:cardElevation="2dp"
                 app:layout_constraintTop_toBottomOf="@id/title_recommend"
-                app:layout_constraintStart_toStartOf="@id/title_recommend"
                 app:layout_constraintLeft_toLeftOf="@+id/title_recommend"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="20dp">
 
-                <!-- 내부 레이아웃은 위 예시와 동일하므로 생략 -->
-                <!-- ... ImageView + TextViews ... -->
+
             </androidx.cardview.widget.CardView>
 
 
-            <!-- 3) ‘라멘의 정석’ 섹션 타이틀 -->
+            <!-- 3) ‘라멘의 정석’  타이틀 -->
             <TextView
                 android:id="@+id/title_basics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="라멘의 정석"
-                android:textSize="18sp"
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/card_recommend"
-                app:layout_constraintStart_toStartOf="@id/card_recommend"
-                android:layout_marginTop="30dp"/>
+                app:layout_constraintLeft_toLeftOf="@+id/card_recommend"
+                android:layout_marginTop="40dp"/>
 
             <!-- 4) 아이콘 Row -->
             <LinearLayout
@@ -109,26 +111,33 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="4"
+                android:gravity="start|center_horizontal"
                 app:layout_constraintTop_toBottomOf="@id/title_basics"
-                app:layout_constraintStart_toStartOf="@id/title_basics"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="15dp">
+                app:layout_constraintLeft_toLeftOf="@+id/title_basics"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="20dp">
 
-                <!-- 4-1) 라면 아이콘 -->
+                <!-- 4-1) 라멘 -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="0dp"
                     android:orientation="vertical"
                     android:gravity="center">
-
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/btn_Ramen"
+                    android:background="@drawable/bg_rounded"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:elevation="2dp"
+                    >
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="#FAF4EC"
-                        android:src="@drawable/ramentype"/>
+                        android:src="@drawable/ramen_type"/>
+                </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,20 +145,27 @@
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:layout_marginTop="4dp"/>
-
                 </LinearLayout>
+                <!-- 4-2) 토핑 -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="46dp"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="#FAF4EC"
-
-                        android:src="@drawable/toping2"/>
+                    <LinearLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/btn_Toping"
+                        android:background="@drawable/bg_rounded"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:elevation="2dp">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/toping_type"/>
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -158,118 +174,96 @@
                         android:textSize="12sp"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
+                <!-- 4-3) 면 -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="46dp"
                     android:orientation="vertical"
                     android:gravity="center">
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="#FAF4EC"
-                        android:src="@drawable/toping2"/>
+                    <LinearLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/btn_Noodle"
+                        android:background="@drawable/bg_rounded"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:elevation="2dp">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/type_noodle"/>
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="면"
                         android:textStyle="bold"
                         android:textSize="12sp"
-                        android:layout_marginTop="4dp"/>
+                        android:layout_marginTop="4dp"
+                        />
                 </LinearLayout>
+                <!-- 4-4) 조미료 -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="46dp"
                     android:orientation="vertical"
-                    android:gravity="center">
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="#FAF4EC"
-                        android:src="@drawable/toping2"/>
+                    android:gravity="center"
+                    >
+                    <LinearLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/btn_Source"
+                        android:background="@drawable/bg_rounded"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:elevation="2dp">
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/sauce_type"/>
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:text="조미료"
+                        android:textStyle="bold"
                         android:textSize="12sp"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
-                <!-- 4-2) 토핑, 4-3) 면, 4-4) 조미료 아이콘도 동일 -->
             </LinearLayout>
 
-
-            <!-- 5) 대표 라멘 샘플 (가로 스크롤) -->
-            <androidx.core.widget.NestedScrollView
+            <!-- 5) 대표 라멘, 토핑, 면, 조미료 종류 (가로 스크롤) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_type_items"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="30dp"
                 android:overScrollMode="never"
                 android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/layout_basics_icons"
-                app:layout_constraintTop_toBottomOf="@id/layout_basics_icons">
+                android:clipToPadding="false"
+                android:paddingEnd="32dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_basics_icons"
+                app:layout_constraintLeft_toLeftOf="@+id/layout_basics_icons"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_type"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="50dp">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        android:layout_marginEnd="12dp"
-                        android:backgroundTint="#faf4ec"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="2dp">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ramentype"/>
-                        <!-- 내부 구성 생략 -->
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="200dp"
-                        android:layout_marginEnd="12dp"
-                        android:backgroundTint="#faf4ec"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="2dp">
-                        <!-- 내부 구성 생략 -->
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="160dp"
-                        android:layout_height="200dp"
-                        android:layout_marginEnd="12dp"
-                        android:backgroundTint="#faf4ec"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="2dp">
-                        <!-- 내부 구성 생략 -->
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- 추가 카드 반복 -->
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--     6) 하단 네비게이션 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="56dp"
+        android:background="#FDFDFB"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconTint="@color/item_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <!--        android:background="@color/beige"-->
-    <!--        app:menu="@menu/bottom_nav_menu"-->
-    <!--        app:itemIconTint="@color/nav_item_color"-->
-    <!--        app:itemTextColor="@color/nav_item_color"-->
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
