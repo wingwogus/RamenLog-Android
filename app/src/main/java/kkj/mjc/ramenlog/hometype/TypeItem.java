@@ -1,4 +1,4 @@
-package kkj.mjc.ramenlog;
+package kkj.mjc.ramenlog.hometype;
 
 import androidx.annotation.DrawableRes;
 

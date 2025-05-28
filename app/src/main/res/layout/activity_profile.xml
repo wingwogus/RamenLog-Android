@@ -231,7 +231,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 
     <!--     6) 하단 네비게이션 -->
