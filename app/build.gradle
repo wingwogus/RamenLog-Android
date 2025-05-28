@@ -12,6 +12,7 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,4 +39,8 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     implementation libs.volley
+    // Retrofit 본체
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // GSON 변환기 (Spring에서 JSON 응답을 Java 객체로 자동 변환)
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
