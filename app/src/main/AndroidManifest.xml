@@ -16,10 +16,16 @@
         android:theme="@style/Theme.RamenLog"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterActivity3"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity2"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,10 +34,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="false">
-
+            android:name=".ProfileActivity"
+            android:exported="false" >
         </activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".RankActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ReviewWriteActivity" />
     </application>
 
 </manifest>

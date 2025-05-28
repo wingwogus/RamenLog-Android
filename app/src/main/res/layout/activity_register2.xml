@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDFDFB"
     android:paddingHorizontal="32dp"
-    android:id="@+id/main">
+    tools:context=".RegisterActivity2">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -30,71 +32,66 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="60dp" />
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#CCCCCC"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmailLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnSendCode"
-        android:layout_marginEnd="8dp" />
-
-    <Button
-        android:id="@+id/btnSendCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="인증번호 발송"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:backgroundTint="#FFF3E0"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="@+id/etEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/etEmail" />
+        android:layout_marginTop="60dp"/>
 
     <TextView
-        android:id="@+id/tvCodeLabel"
+        android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="인증번호"
+        android:text="1234@naver.com"
         android:textColor="#000000"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmailLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"/>
+
+
+    <TextView
+        android:id="@+id/tvPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp" />
 
     <EditText
-        android:id="@+id/etCode"
+        android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:backgroundTint="#CCCCCC"
         android:padding="12dp"
-        android:inputType="number"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/tvCodeLabel"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvPasswordLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnVerifyCode"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <Button
-        android:id="@+id/btnVerifyCode"
+    <TextView
+        android:id="@+id/tvPasswordConfirmLabel"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="확인"
+        android:layout_height="wrap_content"
+        android:text="비밀번호 확인"
+        android:textColor="#000000"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:backgroundTint="#FFF3E0"
-        android:textColor="#000000"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@+id/etCode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/etCode" />
+        app:layout_constraintTop_toBottomOf="@+id/etPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <EditText
+        android:id="@+id/etPasswordConfirm"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#CCCCCC"
+        android:padding="12dp"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tvPasswordConfirmLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnNext"
@@ -105,8 +102,7 @@
         android:textStyle="bold"
         android:backgroundTint="#FFF3E0"
         android:textColor="#000000"
-        android:enabled="false"
-        app:layout_constraintTop_toBottomOf="@+id/btnVerifyCode"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordConfirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp" />

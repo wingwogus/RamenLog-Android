@@ -1,7 +1,5 @@
 package kkj.mjc.ramenlog;
 
-import static android.view.View.VISIBLE;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -9,7 +7,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -19,60 +21,58 @@ import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
 
-import kkj.mjc.ramenlog.request.EmailVerificationRequest;
-import kkj.mjc.ramenlog.request.VerifiedCodeRequest;
+import kkj.mjc.ramenlog.request.SignUpRequest;
+import kkj.mjc.ramenlog.request.VerifiedNicknameRequest;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity3 extends AppCompatActivity {
 
-    private TextView tvCodeLabel;
+    private EditText etNickname;
+    private Button btnCheckDuplicate, btnRegister;
 
-    private EditText etEmail, etCode;
-    private Button btnSendCode, btnVerifyCode, btnNext;
     private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_register3);
 
-        tvCodeLabel = findViewById(R.id.tvCodeLabel);
-        etEmail = findViewById(R.id.etEmail);
-        etCode = findViewById(R.id.etCode);
+        Intent intent = getIntent();
 
-        btnSendCode = findViewById(R.id.btnSendCode);
-        btnVerifyCode = findViewById(R.id.btnVerifyCode);
-        btnNext = findViewById(R.id.btnNext);
-        btnNext.setEnabled(false);
+        String email = intent.getStringExtra("email");
+        String password = intent.getStringExtra("password");
+
+        btnCheckDuplicate = findViewById(R.id.btnCheckDuplicate);
+        etNickname        = findViewById(R.id.etNickname);
+        btnRegister       = findViewById(R.id.btnNext);
 
         queue = Volley.newRequestQueue(this);
 
-        // 1) 이메일 인증번호 요청
-        btnSendCode.setOnClickListener(v -> {
-            String email = etEmail.getText().toString().trim();
-            etEmail.setEnabled(false);
-            if (email.isEmpty()) {
-                Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
+        // 3) 닉네임 중복 확인
+        btnCheckDuplicate.setOnClickListener(v -> {
+            String nickname = etNickname.getText().toString().trim();
+            if (nickname.isEmpty()) {
+                Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            EmailVerificationRequest req = new EmailVerificationRequest(
-                    email,
+            VerifiedNicknameRequest req = new VerifiedNicknameRequest(
+                    nickname,
                     response -> {
                         try {
                             boolean success = response.getBoolean("success");
                             if (!success) {
-                                Toast.makeText(this, "이메일 전송에 실패했습니다", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "이미 존재하는 닉네임입니다", Toast.LENGTH_SHORT).show();
+                                btnRegister.setEnabled(false);
                                 return;
                             }
 
-                            Toast.makeText(this, "이메일 전송 완료", Toast.LENGTH_SHORT).show();
-                            tvCodeLabel.setVisibility(VISIBLE);
-                            etCode.setVisibility(VISIBLE);
-                            btnVerifyCode.setVisibility(VISIBLE);
+                            btnRegister.setEnabled(true);
+                            etNickname.setEnabled(false);
+                            Toast.makeText(this, "사용 가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(this, "이메일 전송 중 오류 발생: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "닉네임 조회 중 오류 발생: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     },
                     error -> {
@@ -96,34 +96,29 @@ public class RegisterActivity extends AppCompatActivity {
             queue.add(req);
         });
 
-        // 2) 인증번호 확인
-        btnVerifyCode.setOnClickListener(v -> {
-            String email = etEmail.getText().toString().trim();
-            String code = etCode.getText().toString().trim();
+        // 4) 최종 회원가입
+        btnRegister.setOnClickListener(v -> {
 
-            if (email.isEmpty() || code.isEmpty()) {
-                Toast.makeText(this, "이메일과 인증번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            String nickname = etNickname.getText().toString().trim();
 
-            VerifiedCodeRequest req = new VerifiedCodeRequest(
+            SignUpRequest req = new SignUpRequest(
                     email,
-                    code,
+                    password,
+                    nickname,
                     response -> {
                         try {
                             boolean success = response.getBoolean("success");
                             if (!success) {
-                                Toast.makeText(this, "인증번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                                btnNext.setEnabled(false);
+                                Toast.makeText(this, "회원가입 실패: " + response.getString("message"), Toast.LENGTH_SHORT).show();
                                 return;
                             }
 
-                            btnNext.setEnabled(true);
-                            Toast.makeText(this, "이메일 인증 완료", Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(this, LoginActivity.class));
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(this, "인증 확인 중 오류 발생: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "응답 처리 중 오류 발생", Toast.LENGTH_SHORT).show();
                         }
                     },
                     error -> {
@@ -145,13 +140,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
             );
             queue.add(req);
-        });
-
-        btnNext.setOnClickListener(v -> {
-            Intent intent = new Intent(RegisterActivity.this, RegisterActivity2.class);
-            intent.putExtra("email", etEmail.getText().toString().trim());
-            startActivity(intent);
-            finish();
         });
     }
 }
