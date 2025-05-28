@@ -25,7 +25,7 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,14 +33,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false" >
-        </activity>
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".RankActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".ReviewWriteActivity" />
+        <activity android:name=".ProfileActivity" android:exported="false"/>
+        <activity android:name=".MainActivity" android:exported="false"/>
+        <activity android:name=".SearchActivity" android:exported="false"/>
+        <activity android:name=".RankActivity" android:exported="false"/>
+        <activity android:name=".ReviewWriteActivity" android:exported="false"/>
     </application>
 
 </manifest>
