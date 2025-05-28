@@ -4,7 +4,7 @@
     android:id="@+id/mypage_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fbfbfd">
+    android:background="#FDFDFB">
 
     <!-- 1) 툴바 -->
     <androidx.appcompat.widget.Toolbar
@@ -39,17 +39,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             >
             <!-- 2) 사용자 이미지 -->
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:id="@+id/user_img"
-                android:src="@drawable/ic_camera"
+                android:src="@drawable/img_profile"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,11 +59,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🍜 라전드"
+                android:text=" 🍜 라전드 "
                 android:id="@+id/user_grade"
                 android:textSize="12dp"
                 android:textStyle="bold"
-                android:background="#f2f2C8"
+                android:textColor="@color/black"
+                android:background="@drawable/bg_rounded_grade"
                 app:layout_constraintTop_toBottomOf="@+id/user_img"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:text="라경오준타"
                 android:textSize="24dp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@+id/user_grade"
@@ -95,40 +97,141 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="6dp"/>
+            <!-- 6) 칭호 프로그레스바 height 120dp -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"
-                android:id="@+id/grade_processbar"
-                android:background="#FFFFFF"
+                android:layout_height="120dp"
+                android:id="@+id/grade_page"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/bg_rounded_white"
                 app:layout_constraintTop_toBottomOf="@+id/btn_fix"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="22dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    >
+                    <!-- 1줄: 라오타까지 -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/grade"
+                        android:text="라오타"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="까지"
+                        android:textColor="@color/black"
+                        android:textSize="12dp"
+                        />
+                    </LinearLayout>
+                        <!-- 2줄: 17그릇 남음 -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/grade_status"
+                        android:text="17그릇"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 남음"
+                        android:textColor="@color/black"
+                        android:textSize="12dp"
+                        />
+                    </LinearLayout>
+                    <!-- ProgressBar -->
+                    <ProgressBar
+                        android:id="@+id/grade_progressbar"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"
+                        android:progress="33"
+                        android:max="100"
+                        android:layout_marginTop="12dp"
+                        android:progressDrawable="@drawable/progressbar_custom"/>
+                    <!-- ProgressBar 끝 위에 이미지 -->
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_ramen"
+                        android:layout_gravity="end|top"
+                        android:translationY="-33dp" />
+                    <!-- 아래쪽: 30 / 50 텍스트 -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:translationY="-20dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/progress_min"
+                        android:text="30"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/progress_max"
+                        android:text="50"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="352dp"
+                        />
+                    </LinearLayout>
+                </LinearLayout
+>
+            </LinearLayout>
+
+            <!-- 탭 영역 -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grade_page"
+                app:tabIndicatorColor="@color/black"
+                app:tabIndicatorHeight="2dp"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/gray" />
+
+            <!-- 탭에 따른 내용 표시 영역 -->
+            <FrameLayout
+                android:id="@+id/tab_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 />
-<!--                &lt;!&ndash; 탭 (마이 로그 / 찜 그릇) &ndash;&gt;-->
-<!--                <com.google.android.material.tabs.TabLayout-->
-<!--                    android:id="@+id/tab_layout"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:tabIndicatorColor="@color/black"-->
-<!--                    app:tabTextColor="@color/gray"-->
-<!--                    app:tabSelectedTextColor="@color/black"-->
-<!--                    app:tabIndicatorHeight="2dp"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/user_name"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    >-->
-
-<!--                &lt;!&ndash; 탭 내용 표시 영역 &ndash;&gt;-->
-<!--                <FrameLayout-->
-<!--                    android:id="@+id/fragment_container"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="12dp">-->
-<!--                </FrameLayout>-->
-<!--                </com.google.android.material.tabs.TabLayout>-->
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
     <!--     6) 하단 네비게이션 -->

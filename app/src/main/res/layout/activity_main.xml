@@ -5,7 +5,7 @@
     android:id="@+id/home_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fbfbfd">
+    android:background="#FDFDFB">
 
     <!-- 1) 툴바 -->
     <androidx.appcompat.widget.Toolbar
@@ -144,6 +144,7 @@
                         android:text="라멘"
                         android:textStyle="bold"
                         android:textSize="12sp"
+                        android:textColor="@color/black"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
                 <!-- 4-2) 토핑 -->
@@ -171,6 +172,7 @@
                         android:layout_height="wrap_content"
                         android:text="토핑"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
@@ -199,6 +201,7 @@
                         android:layout_height="wrap_content"
                         android:text="면"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
                         android:layout_marginTop="4dp"
                         />
@@ -228,6 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="조미료"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:layout_marginTop="4dp"/>

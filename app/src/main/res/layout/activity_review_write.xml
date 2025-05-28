@@ -4,7 +4,7 @@
     android:id="@+id/review_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fbfbfd">
+    android:background="#FDFDFB">
 
     <!-- 1) 툴바 -->
     <androidx.appcompat.widget.Toolbar
@@ -55,6 +55,7 @@
         android:text="멘야 코이시"
         android:textSize="24dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,11 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="12dp" />
-
-    <!-- 4) 리뷰 입력 -->
-
-
-            <!-- 5) 사진 업로드 버튼 -->
+            <!-- 4) 리뷰 입력 -->
             <EditText
                 android:id="@+id/edt_Review"
                 android:layout_width="match_parent"
@@ -95,7 +92,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ratingBar" />
-
+            <!-- 5) 사진 업로드 버튼 -->
             <LinearLayout
                 android:id="@+id/btn_upload_photo"
                 android:layout_width="match_parent"
