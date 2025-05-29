@@ -1,4 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FDFDFB"
+    >
+
+
+    <!-- 뒤로가기 아이콘 // 수정 필요 -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/ic_media_previous"
+        android:contentDescription="뒤로가기"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/searchBox"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <!-- 검색창 // x버튼 이미지 수정 필요-->
+    <AutoCompleteTextView
+        android:id="@+id/searchBox"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@drawable/search_box_background"
+        android:hint="매장명으로 검색해 보세요."
+        android:textSize="15dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:drawableEnd="@drawable/ic_clear_circle"
+        android:inputType="text"
+        android:completionThreshold="1"
+        android:layout_marginTop="20dp"
+
+        app:layout_constraintStart_toEndOf="@id/backButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- "매장" 텍스트 -->
+    <TextView
+        android:id="@+id/storeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="매장"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:paddingStart="8dp"
+        android:visibility="gone"
+
+        app:layout_constraintTop_toBottomOf="@id/searchBox"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp" />
+
+
+    <ListView
+        android:id="@+id/resultList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+
+        app:layout_constraintTop_toBottomOf="@id/storeTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+=======
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,3 +110,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> dev
