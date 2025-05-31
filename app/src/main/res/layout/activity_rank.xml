@@ -81,7 +81,7 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/ramen_sample"
+                        android:src="@drawable/ramen_sio"
                         android:scaleType="centerCrop"
                         android:layout_marginTop="4dp"/>
 
@@ -121,13 +121,13 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/ic_medal_gold"
+                        android:src="@drawable/ic_2st_silver"
                         android:contentDescription="1위 메달" />
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/ramen_sample"
+                        android:src="@drawable/ramen_sou"
                         android:scaleType="centerCrop"
                         android:layout_marginTop="4dp"/>
 
@@ -167,13 +167,13 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_medal_bronze"
+                        android:src="@drawable/ic_2st_silver"
                         android:contentDescription="3위 메달" />
 
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/ramen_sample"
+                        android:src="@drawable/ramen_don"
                         android:scaleType="centerCrop"
                         android:layout_marginTop="4dp"/>
 
