@@ -1,6 +1,5 @@
 package kkj.mjc.ramenlog;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -14,10 +13,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Arrays;
 import java.util.List;
 
+import kkj.mjc.ramenlog.hometype.TypeAdapter;
+import kkj.mjc.ramenlog.hometype.TypeItem;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvTypeItems;
-    private TypeAdapter       adapter;
+    private TypeAdapter adapter;
     private LinearLayout btnRamen, btnToping, btnNoodle, btnSource;
     private LinearLayout selectedButton; // 현재 선택된 버튼 추적
 

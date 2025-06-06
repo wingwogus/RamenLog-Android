@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 동그란 배경 -->
+    <item
+        android:width="18dp"
+        android:height="18dp"
+        >
+        <shape android:shape="oval">
+            <solid android:color="#A2A2A2" />
+        </shape>
+    </item>
+
+    <!-- X 아이콘 -->
+    <item android:drawable="@android:drawable/ic_menu_close_clear_cancel"
+        android:gravity="center"
+        android:width="15dp"
+        android:height="15dp"
+        />
+</layer-list>
