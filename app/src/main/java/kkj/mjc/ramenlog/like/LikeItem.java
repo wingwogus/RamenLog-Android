@@ -4,9 +4,9 @@ public class LikeItem {
     int id;
     String name;
     String address;
-    int score;
+    double score;
 
-    public LikeItem(int id, String name, String address, int score) {
+    public LikeItem(int id, String name, String address, double score) {
         this.id = id;
         this.name = name;
         this.address = address;
