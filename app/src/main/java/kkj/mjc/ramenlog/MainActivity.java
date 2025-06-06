@@ -1,17 +1,29 @@
 package kkj.mjc.ramenlog;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONObject;
+
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kkj.mjc.ramenlog.hometype.TypeAdapter;
 import kkj.mjc.ramenlog.hometype.TypeItem;
@@ -22,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private TypeAdapter adapter;
     private LinearLayout btnRamen, btnToping, btnNoodle, btnSource;
     private LinearLayout selectedButton; // 현재 선택된 버튼 추적
+    private ImageView ivImage;
+    private TextView tvName, tvAvgRating, tvAddress;
 
-
-    // 3) 각 카테고리별 데이터 리스트
+    // 각 카테고리별 데이터 리스트
     private final List<TypeItem> ramenList = Arrays.asList(
             new TypeItem(R.drawable.ramen_sou, "소유 라멘", "간장 베이스"),
             new TypeItem(R.drawable.ramen_don,   "돈코츠 라멘", "돼지 뼈를 우린 국물"),
@@ -63,6 +76,13 @@ public class MainActivity extends AppCompatActivity {
         btnToping   = findViewById(R.id.btn_Toping);
         btnNoodle   = findViewById(R.id.btn_Noodle);
         btnSource   = findViewById(R.id.btn_Source);
+        ivImage = findViewById(R.id.iv_recommend_image);
+        tvName = findViewById(R.id.tv_recommend_name);
+        tvAvgRating = findViewById(R.id.tv_recommend_avgRating);
+        tvAddress = findViewById(R.id.tv_recommend_address);
+
+        // 랜덤 라멘 추천 픽 가져오기
+        loadRandomRestaurant();
 
         // RecyclerView 세팅 (가로 레이아웃 매니저)
         rvTypeItems.setLayoutManager(
@@ -111,5 +131,58 @@ public class MainActivity extends AppCompatActivity {
         selectedButton = newButton;
 
         adapter.setItems(newList); // 목록 변경
+    }
+    // 랜덤 라멘 추천 API 호출
+    private void loadRandomRestaurant() {
+        // 토큰 가져오기
+        SharedPreferences pref = getSharedPreferences("auth", MODE_PRIVATE);
+        String token = pref.getString("accessToken", null);
+        if (token == null) {
+            Log.e("API_ERROR", "JWT Token is null");
+            return;
+        }
+        // URL 정의
+        String url = "http://10.0.2.2:8080/api/restaurant/random";
+        // Volley RequestQueue
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // Request 생성
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST, url, null,
+                response -> {
+                    Log.d("API_SUCCESS", "Response: " + response.toString());
+                    try {
+                        JSONObject data = response.getJSONObject("data");
+
+                        String name = data.getString("name");
+                        double avgRating = data.getDouble("avgRating");
+                        JSONObject addrObj = data.getJSONObject("address");
+                        String fullAddress = addrObj.getString("fullAddress");
+
+                        tvName.setText(name);
+                        tvAvgRating.setText(String.valueOf(avgRating));
+                        tvAddress.setText(fullAddress);
+
+                        // 이미지 로드는 글라이드 추천
+                        // Glide.with(this).load(imageUrl).into(ivImage);  // 지금은 없으니 패스
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    Log.e("API_ERROR", "Random restaurant API failed: " + error.toString());
+
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        // Request 실행
+        queue.add(request);
     }
 }
