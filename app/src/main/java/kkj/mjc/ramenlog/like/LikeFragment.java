@@ -56,9 +56,7 @@ public class LikeFragment extends Fragment {
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject item = data.getJSONObject(i);
                                 JSONObject address = item.getJSONObject("address");
-                                String fullAddress = address.getString("city") + " " +
-                                        address.getString("town") + " " +
-                                        address.getString("street");
+                                String fullAddress = address.getString("fullAddress");
                                 likeList.add(
                                         new LikeItem(
                                         item.getInt("id"),
