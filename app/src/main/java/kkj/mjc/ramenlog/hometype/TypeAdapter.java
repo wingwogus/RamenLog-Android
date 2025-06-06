@@ -1,4 +1,4 @@
-package kkj.mjc.ramenlog;
+package kkj.mjc.ramenlog.hometype;
 
 
 
@@ -9,12 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.DrawableRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kkj.mjc.ramenlog.R;
 
 public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.VH> {
     private final List<TypeItem> items = new ArrayList<>();

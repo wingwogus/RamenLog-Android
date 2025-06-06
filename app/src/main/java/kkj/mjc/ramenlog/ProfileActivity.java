@@ -1,5 +1,6 @@
 package kkj.mjc.ramenlog;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import kkj.mjc.ramenlog.like.LikeFragment;
+
+import kkj.mjc.ramenlog.mylog.MyLogFragment;
 
 public class ProfileActivity extends AppCompatActivity{
     TabLayout tabLayout;
@@ -32,7 +35,6 @@ public class ProfileActivity extends AppCompatActivity{
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Fragment selected = null;
-
                 switch (tab.getPosition()) {
                     case 0:
                         selected = new MyLogFragment();
