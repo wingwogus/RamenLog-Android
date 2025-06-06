@@ -37,13 +37,11 @@ public class MyLogFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mylog, container, false);
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_mylog, container, false);
+
         recycler = view.findViewById(R.id.recycler_mylog);
         // 1) 레이아웃 매니저
-        recycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         // 2) 스크롤뷰 안에 있을 때 스무스하게
         recycler.setNestedScrollingEnabled(false);
         // 어댑터 연결
@@ -51,7 +49,10 @@ public class MyLogFragment extends Fragment {
         recycler.setAdapter(adapter);
 
         loadMyReviews();
+
+        return view;
     }
+
     private void loadMyReviews() {
         Bundle args = getArguments();
         if (args != null) {
@@ -62,6 +63,7 @@ public class MyLogFragment extends Fragment {
                         response -> {
                             try {
                                 JSONArray data = response.getJSONArray("data");
+                                reviewItemList.clear();
                                 for (int i = 0; i < data.length(); i++) {
                                     JSONObject obj = data.getJSONObject(i);
                                     String name = obj.getString("restaurantName");

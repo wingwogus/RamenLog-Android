@@ -22,33 +22,24 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
-
-        <activity
-            android:name=".RegisterActivity3"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
+        <activity android:name=".RegisterActivity3" android:exported="false" />
+        <activity android:name=".RegisterActivity2" android:exported="false" />
+        <activity android:name=".RegisterActivity" android:exported="false" />
+        <activity android:name=".SearchActivity" android:exported="false" />
         <activity 
             android:name=".LoginActivity" 
-            android:exported="false"/>
-        <activity android:name=".MainActivity" android:exported="false" />
-        <activity android:name=".ProfileActivity" android:exported="false" />
-        <activity android:name=".RankActivity" android:exported="false" />
-        <activity android:name=".ReviewWriteActivity" android:exported="false" />
-        <activity android:name=".FindMapActivity" android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".ProfileActivity" android:exported="false" />
+        <activity android:name=".RankActivity" android:exported="false" />
+        <activity android:name=".ReviewWriteActivity" android:exported="false"/>
+        <activity android:name=".FindMapActivity" android:exported="false"/>
     </application>
 
 </manifest>

@@ -125,7 +125,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/grade"
+                        android:id="@+id/next_grade"
                         android:text="라오타"
                         android:textSize="12dp"
                         android:textColor="@color/black"
@@ -147,8 +147,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/grade_status"
-                        android:text="17그릇"
+                        android:id="@+id/remaining_count"
+                        android:text="3그릇"
                         android:textColor="@color/black"
                         android:textSize="16dp"
                         android:textStyle="bold"
@@ -184,23 +184,22 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:translationY="-20dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/progress_min"
-                        android:text="30"
-                        android:textSize="12dp"
-                        android:textColor="@color/black"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/progress_max"
-                        android:text="50"
-                        android:textSize="12dp"
-                        android:textColor="@color/black"
-                        android:layout_marginLeft="352dp"
-                        />
+
+                        <TextView
+                            android:id="@+id/start_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="30"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/end_count"
+                            android:text="50"
+                            android:textSize="12dp"
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="352dp" />
                     </LinearLayout>
                 </LinearLayout
 >
