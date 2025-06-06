@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -14,7 +16,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RamenLog"
+        android:name=".kakao.RamenMap"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
         <activity
             android:name=".RegisterActivity3"
             android:exported="false" />
@@ -27,19 +35,20 @@
         <activity
             android:name=".SearchActivity"
             android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true">
+        <activity 
+            android:name=".LoginActivity" 
+            android:exported="false"/>
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".ProfileActivity" android:exported="false" />
+        <activity android:name=".RankActivity" android:exported="false" />
+        <activity android:name=".ReviewWriteActivity" android:exported="false" />
+        <activity android:name=".FindMapActivity" android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:exported="false" />
-        <activity android:name=".ProfileActivity" android:exported="false" />
-        <activity android:name=".RankActivity" android:exported="false" />
-        <activity android:name=".ReviewWriteActivity" android:exported="false" />
     </application>
 
 </manifest>
