@@ -6,6 +6,7 @@
     android:background="#FDFDFB"
     >
 
+
     <!-- 뒤로가기 아이콘 // 수정 필요 -->
     <ImageView
         android:id="@+id/backButton"
@@ -68,6 +69,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
