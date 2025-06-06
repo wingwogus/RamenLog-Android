@@ -25,7 +25,6 @@ public class RankActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank); // 👉 여기에 연결할 레이아웃
 
-
         // 툴바
         setSupportActionBar(findViewById(R.id.toolbar_rank));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
