@@ -32,7 +32,7 @@ public class DetailActivity extends AppCompatActivity {
         String token = prefs.getString("accessToken", null);
 
         // ⭐⭐⭐ restaurantId 받아오기 ⭐⭐⭐
-        Long restaurantId = getIntent().getLongExtra("restaurantId", 1L);
+        Long restaurantId = getIntent().getLongExtra("restaurantId", -1L);
 
         // 기본 프래그먼트
         DetailHomeFragment homeFragment = new DetailHomeFragment();

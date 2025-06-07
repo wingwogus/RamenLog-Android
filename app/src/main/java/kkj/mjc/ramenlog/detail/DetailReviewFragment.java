@@ -30,7 +30,7 @@ public class DetailReviewFragment extends Fragment {
         btnWriteReview.setOnClickListener(v -> {
             Long currentRestaurantId = -1L;
             if (getArguments() != null) {
-                currentRestaurantId = getArguments().getLong("restaurantId", 1L);
+                currentRestaurantId = getArguments().getLong("restaurantId", -1L);
             }
             Intent intent = new Intent(getActivity(), ReviewWriteActivity.class);
             intent.putExtra("restaurantId", currentRestaurantId);  // ⭐ 여기에 현재 화면에서 보고 있는 restaurantId 를 넘겨야 함

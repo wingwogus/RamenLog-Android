@@ -44,7 +44,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         btnsubmitreview = findViewById(R.id.btn_submit_review);
         btnuploadphoto = findViewById(R.id.btn_upload_photo);
 
-        restaurantId = getIntent().getLongExtra("restaurantId", 1L);
+        restaurantId = getIntent().getLongExtra("restaurantId", -1L);
 
         // 1) 사진 업로드 버튼
         btnuploadphoto.setOnClickListener(v -> {
