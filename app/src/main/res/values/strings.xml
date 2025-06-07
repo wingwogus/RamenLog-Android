@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">RamenLog</string>
     <string name="title_activity_main2">MainActivity2</string>
-    <string name="kakao_app_key">b4c7768420bb1c9e89820c47bb176832</string>
 </resources>
