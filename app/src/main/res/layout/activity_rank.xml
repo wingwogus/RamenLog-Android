@@ -59,6 +59,7 @@
 
                 <!-- 2위 -->
                 <LinearLayout
+                    android:id="@+id/layoutRank2"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_rounded_rank"
@@ -126,6 +127,7 @@
 
                 <!-- 1위 -->
                 <LinearLayout
+                    android:id="@+id/layoutRank1"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -188,6 +190,8 @@
 
                 <!-- 3위 -->
                 <LinearLayout
+                    android:id="@+id/layoutRank3"
+
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"

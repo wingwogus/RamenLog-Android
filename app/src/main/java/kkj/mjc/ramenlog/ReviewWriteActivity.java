@@ -33,6 +33,8 @@ public class ReviewWriteActivity extends AppCompatActivity {
     private EditText edtReview;
     private Long restaurantId;
 
+    private TextView tvName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,11 @@ public class ReviewWriteActivity extends AppCompatActivity {
         edtReview  = findViewById(R.id.edt_Review);
         btnsubmitreview = findViewById(R.id.btn_submit_review);
         btnuploadphoto = findViewById(R.id.btn_upload_photo);
+        tvName = findViewById(R.id.restaurant_name);
 
-        restaurantId = getIntent().getLongExtra("restaurantId", -1L);
+        Intent intent = getIntent();
+        restaurantId = intent.getLongExtra("restaurantId", -1L);
+        tvName.setText(intent.getStringExtra("restaurantName"));
 
         // 1) 사진 업로드 버튼
         btnuploadphoto.setOnClickListener(v -> {

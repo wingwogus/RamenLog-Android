@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +19,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout selectedButton; // 현재 선택된 버튼 추적
     private ImageView ivImage;
     private TextView tvName, tvAvgRating, tvAddress;
+
+    private ConstraintLayout cardView;
 
     // 각 카테고리별 데이터 리스트
     private final List<TypeItem> ramenList = Arrays.asList(
@@ -81,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         tvName = findViewById(R.id.tv_recommend_name);
         tvAvgRating = findViewById(R.id.tv_recommend_avgRating);
         tvAddress = findViewById(R.id.tv_recommend_address);
+        cardView = findViewById(R.id.card_recommend);
 
         // 랜덤 라멘 추천 픽 가져오기
         loadRandomRestaurant();
@@ -156,6 +163,23 @@ public class MainActivity extends AppCompatActivity {
                         tvName.setText(name);
                         tvAvgRating.setText(String.valueOf(avgRating));
                         tvAddress.setText(fullAddress);
+
+                        String imageUrl = data.getString("imageUrl");
+                        if (!imageUrl.equals("null")) {
+                            Picasso.get()
+                                    .load(imageUrl)
+                                    .into(ivImage);
+                        }
+
+                        cardView.setOnClickListener(v -> {
+                            Intent intent = new Intent(this, DetailActivity.class);
+                            try {
+                                intent.putExtra("restaurantId", data.getLong("id"));
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            startActivity(intent);
+                        });
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -8,12 +8,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DetailRequest extends JsonObjectRequest {
-    private static final String URL = "http://10.0.2.2:8080/api/restaurant/";
+public class LikeRequest extends JsonObjectRequest {
+    private static final String URL = "http://10.0.2.2:8080/api/likes/";
     private final String token;
 
-    public DetailRequest(String token, String restaurantId, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        super(Method.GET, URL+restaurantId, null, listener, errorListener);
+    public LikeRequest(String token, String restaurantId, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        super(Method.POST, URL+restaurantId, null, listener, errorListener);
         this.token = token;
     }
 

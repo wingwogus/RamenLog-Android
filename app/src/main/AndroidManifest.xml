@@ -39,7 +39,8 @@
         <activity android:name=".ProfileActivity" android:exported="false" />
         <activity android:name=".RankActivity" android:exported="false" />
         <activity android:name=".ReviewWriteActivity" android:exported="false"/>
-        <activity android:name=".FindMapActivity" android:exported="true" />
+        <activity android:name=".FindMapActivity" android:exported="false" />
+        <activity android:name=".DetailActivity" android:exported="false"/>
     </application>
 
 </manifest>
