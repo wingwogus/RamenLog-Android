@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/detail_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDFDFB">
+
+    <!-- 1) 툴바 -->
+    <ImageView
+        android:id="@+id/toolbar_detail"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@drawable/ex_ramen"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+    </ImageView>
+    <!-- 2. 내용 영역 -->
+    <ScrollView
+        android:id="@+id/scroll_detail"
+        android:layout_width="0dp"
+        android:layout_height="600dp"
+        android:background="@drawable/bg_rounded_white"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_detail"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_explain"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+                <!-- 가게 주소 -->
+                <TextView
+                    android:id="@+id/detail_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="주소"
+                    android:textSize="11dp"
+                    android:textColor="@color/gray"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="20dp" />
+
+                <!-- 가게 이름 -->
+                <TextView
+                    android:id="@+id/detail_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="라멘집 이름"
+                    android:textSize="24dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                     />
+                <!-- 찜 아이콘 -->
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/iv_like"
+                    android:src="@drawable/ic_like"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_address"
+                    app:layout_constraintLeft_toRightOf="@+id/detail_name"
+                    />
+                <!-- 별 아이콘 -->
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/iv_star"
+                    android:src="@drawable/ic_star"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_name"
+                    />
+                <!-- 평균 별점 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_rating"
+                    android:text="4.4"
+                    android:textSize="12dp"
+                    android:textColor="@color/gray"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_name"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_star"
+                    />
+                <!-- 랭킹 순위 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ex_rank"
+                    android:text="RoR : "
+                    android:textSize="12sp"
+                    android:textColor="@color/gray"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_rating"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_name"
+                    />
+                <!-- 랭킹 순위 (이것만 데이터 가져오기) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_rank"
+                    android:text="123"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray"
+                    app:layout_constraintLeft_toRightOf="@+id/ex_rank"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_name"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="위"
+                    android:textSize="11sp"
+                    android:textColor="@color/gray"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_rank"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_name"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!-- 탭 영역 -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_explain"
+                app:tabIndicatorColor="@color/black"
+                app:tabIndicatorHeight="2dp"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextColor="@color/gray" />
+
+            <!-- 탭에 따른 내용 표시 영역 -->
+            <FrameLayout
+                android:id="@+id/tab_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- 하단 네비게이션 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="#FDFDFB"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconTint="@color/item_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
