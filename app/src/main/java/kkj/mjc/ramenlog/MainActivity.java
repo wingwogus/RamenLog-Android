@@ -27,6 +27,7 @@ import java.util.Map;
 
 import kkj.mjc.ramenlog.hometype.TypeAdapter;
 import kkj.mjc.ramenlog.hometype.TypeItem;
+import kkj.mjc.ramenlog.request.HomeRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -138,18 +139,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("auth", MODE_PRIVATE);
         String token = pref.getString("accessToken", null);
         if (token == null) {
-            Log.e("API_ERROR", "JWT Token is null");
             return;
         }
-        // URL 정의
-        String url = "http://10.0.2.2:8080/api/restaurant/random";
-        // Volley RequestQueue
         RequestQueue queue = Volley.newRequestQueue(this);
-        // Request 생성
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.POST, url, null,
+        HomeRequest request = new HomeRequest(
+                token,
                 response -> {
-                    Log.d("API_SUCCESS", "Response: " + response.toString());
                     try {
                         JSONObject data = response.getJSONObject("data");
 
@@ -161,28 +156,14 @@ public class MainActivity extends AppCompatActivity {
                         tvName.setText(name);
                         tvAvgRating.setText(String.valueOf(avgRating));
                         tvAddress.setText(fullAddress);
-
-                        // 이미지 로드는 글라이드 추천
-                        // Glide.with(this).load(imageUrl).into(ivImage);  // 지금은 없으니 패스
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 },
                 error -> {
                     error.printStackTrace();
-                    Log.e("API_ERROR", "Random restaurant API failed: " + error.toString());
-
                 }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + token);
-                return headers;
-            }
-        };
-        // Request 실행
+        );
         queue.add(request);
     }
 }
