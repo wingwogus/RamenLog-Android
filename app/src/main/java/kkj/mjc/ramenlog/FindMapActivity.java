@@ -19,17 +19,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.kakao.vectormap.KakaoMap;
-import com.kakao.vectormap.KakaoMapReadyCallback;
-import com.kakao.vectormap.LatLng;
-import com.kakao.vectormap.MapLifeCycleCallback;
-import com.kakao.vectormap.MapView;
-import com.kakao.vectormap.RoadViewRequest;
-import com.kakao.vectormap.camera.CameraUpdateFactory;
 
 
 import java.util.Arrays;
@@ -48,7 +39,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FindMapActivity extends AppCompatActivity {
 
-    private KakaoMap kakaoMap;
     private Double currentLat = null;
     private Double currentLng = null;
 
