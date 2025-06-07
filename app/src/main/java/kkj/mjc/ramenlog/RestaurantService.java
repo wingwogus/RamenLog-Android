@@ -11,4 +11,7 @@ import retrofit2.http.Query;
 public interface RestaurantService {
     @GET("/api/restaurant/search")
     Call<ApiResponse<List<Restaurant>>> search (@Query("keyword") String keyword);
+
+    @GET("api/restaurant/all")
+    Call<ApiResponse<List<Restaurant>>> getAll();
 }
