@@ -29,11 +29,15 @@ public class DetailReviewFragment extends Fragment {
         btnWriteReview = view.findViewById(R.id.btn_write_review);
         btnWriteReview.setOnClickListener(v -> {
             Long currentRestaurantId = -1L;
+            String currentRestaurantName = null;
             if (getArguments() != null) {
-                currentRestaurantId = getArguments().getLong("restaurantId", -1L);
+                Bundle arguments = getArguments();
+                currentRestaurantId = arguments.getLong("restaurantId", -1L);
+                currentRestaurantName = arguments.getString("restaurantName", "없음");
             }
             Intent intent = new Intent(getActivity(), ReviewWriteActivity.class);
-            intent.putExtra("restaurantId", currentRestaurantId);  // ⭐ 여기에 현재 화면에서 보고 있는 restaurantId 를 넘겨야 함
+            intent.putExtra("restaurantId", currentRestaurantId);// ⭐ 여기에 현재 화면에서 보고 있는 restaurantId 를 넘겨야 함
+            intent.putExtra("restaurantName", currentRestaurantName);
             startActivity(intent);
         });
         return view;
