@@ -1,6 +1,7 @@
 package kkj.mjc.ramenlog;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -31,6 +32,8 @@ public class ReviewWriteActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private EditText edtReview;
     private Long restaurantId;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         btnsubmitreview = findViewById(R.id.btn_submit_review);
         btnuploadphoto = findViewById(R.id.btn_upload_photo);
 
+        restaurantId = getIntent().getLongExtra("restaurantId", 1L);
 
         // 1) 사진 업로드 버튼
         btnuploadphoto.setOnClickListener(v -> {
@@ -90,26 +94,29 @@ public class ReviewWriteActivity extends AppCompatActivity {
         float ratingFloat = ratingBar.getRating();
         Double rating = (double) ratingFloat;  // DTO 가 Double 이니까 변환
 
+        SharedPreferences pref = getSharedPreferences("auth", MODE_PRIVATE);
+        String token = pref.getString("accessToken", null);
+        if (token == null) {
+            Toast.makeText(this, "로그인 필요", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // 2) DTO 에 세팅
-        ReviewRequest dto = new ReviewRequest(restaurantId, rating, content,
+        ReviewRequest dto = new ReviewRequest(
+                token,restaurantId, rating, content,
                 response -> {
                     try {
                         String data = response.getString("data");
                         Toast.makeText(this, "리뷰 성공", Toast.LENGTH_SHORT).show();
+                        finish();
                     } catch (JSONException e) {
-
-
+                        e.printStackTrace();
                     }
-
                 },
-                        error -> {
-
-                        });
-
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(this, "리뷰 실패", Toast.LENGTH_SHORT).show();
+                });
         RequestQueue queue = Volley.newRequestQueue(ReviewWriteActivity.this);
         queue.add(dto);
-
     }
-
-
 }

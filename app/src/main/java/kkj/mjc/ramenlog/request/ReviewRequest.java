@@ -10,8 +10,9 @@ import java.util.Map;
 
 public class ReviewRequest extends JsonObjectRequest {
     private static final String URL = "http://10.0.2.2:8080/api/reviews/";
-
+    private final String token;
     public ReviewRequest(
+            String token,
             Long restaurantId,
             Double rating,
             String content,
@@ -23,6 +24,7 @@ public class ReviewRequest extends JsonObjectRequest {
                 buildRequestBody(restaurantId, rating, content),
                 listener,
                 errorListener);
+        this.token = token;
     }
 
     private static JSONObject buildRequestBody(Long restaurantId, Double rating, String content) {
@@ -42,7 +44,7 @@ public class ReviewRequest extends JsonObjectRequest {
         Map<String, String> headers = new HashMap<>();
         // 서버에서 JSON 으로 받아들이도록 Content-Type 설정
         headers.put("Content-Type", "application/json; charset=utf-8");
-
+        headers.put("Authorization", "Bearer " + token);
         return headers;
     }
 }
