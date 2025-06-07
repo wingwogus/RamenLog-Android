@@ -7,6 +7,7 @@ import static java.security.AccessController.getContext;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,6 +53,7 @@ public class RankActivity extends AppCompatActivity{
         TextView[] nameList = {findViewById(R.id.tvRank1), findViewById(R.id.tvRank2), findViewById(R.id.tvRank3)};
         TextView[] ratingList = {findViewById(R.id.tvRating1), findViewById(R.id.tvRating2), findViewById(R.id.tvRating3)};
         TextView[] addressList = {findViewById(R.id.tvAddress1),findViewById(R.id.tvAddress2),findViewById(R.id.tvAddress3)};
+        ImageView[] imageList = {findViewById(R.id.ivRank1), findViewById(R.id.ivRank2),findViewById(R.id.ivRank3)};
 
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         String token = prefs.getString("accessToken", null);
@@ -75,6 +78,9 @@ public class RankActivity extends AppCompatActivity{
                                 nameList[i].setText(name);
                                 ratingList[i].setText(String.valueOf(avgRating));
                                 addressList[i].setText(fullAddress);
+                                Picasso.get()
+                                        .load(item.getString("imageUrl"))
+                                        .into(imageList[i]);
                             }
 
                         }

@@ -85,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity{
                         int reviewCount = data.getInt("reviewCount");
 
                         name.setText(data.getString("nickname"));
-                        grade.setText("🍜 " + data.getString("grade"));
+                        grade.setText(" 🍜 " + data.getString("grade") + " ");
                         nextGrade.setText(data.getString("nextGrade"));
                         startReviewCount.setText(String.valueOf(start));
                         endReviewCount.setText(String.valueOf(end));

@@ -66,4 +66,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //kakao
     implementation libs.android
+
+    implementation libs.picasso
+
 }

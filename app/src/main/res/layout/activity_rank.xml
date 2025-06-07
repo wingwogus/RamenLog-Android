@@ -79,6 +79,8 @@
                         android:contentDescription="2위 메달" />
 
                     <ImageView
+                        android:id="@+id/ivRank2"
+                        android:background="@drawable/bg_rounded"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/ramen_don"
@@ -138,8 +140,10 @@
                         android:contentDescription="1위 메달" />
 
                     <ImageView
+                        android:id="@+id/ivRank1"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:background="@drawable/bg_rounded"
                         android:src="@drawable/ramen_don"
                         android:scaleType="centerCrop"
                         android:layout_marginTop="4dp"/>
@@ -199,8 +203,10 @@
                         android:contentDescription="3위 메달" />
 
                     <ImageView
+                        android:id="@+id/ivRank3"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:background="@drawable/bg_rounded"
                         android:src="@drawable/ramen_don"
                         android:scaleType="centerCrop"
                         android:layout_marginTop="4dp"/>
