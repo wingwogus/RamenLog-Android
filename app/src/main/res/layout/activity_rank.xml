@@ -52,7 +52,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +68,7 @@
                     android:layout_marginTop="30dp">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
                         >
@@ -87,6 +86,7 @@
                         android:layout_marginTop="4dp"/>
 
                     <TextView
+                        android:id="@+id/tvRank2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="맛스구"
@@ -106,17 +106,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/total_score1"
+                                android:id="@+id/tvRating2"
                                 android:text="4.9"
                                 android:textSize="12sp"
                                 android:textColor="@color/black" />
                         </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="서울 응암점"
-                        android:textSize="12sp"
-                        android:textColor="@color/black" />
+                        <TextView
+                            android:id="@+id/tvAddress2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="서울 홍대점"
+                            android:textSize="12sp"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="2dp"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -143,6 +145,7 @@
                         android:layout_marginTop="4dp"/>
 
                     <TextView
+                        android:id="@+id/tvRank1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="공혁준 라멘"
@@ -162,13 +165,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/total_score2"
+                            android:id="@+id/tvRating1"
                             android:text="4.9"
                             android:textSize="12sp"
                             android:textColor="@color/black"
                             />
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/tvAddress1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="서울 홍대점"
@@ -202,6 +206,7 @@
                         android:layout_marginTop="4dp"/>
 
                     <TextView
+                        android:id="@+id/tvRank3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="류진노크라에"
@@ -221,13 +226,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/total_score3"
+                            android:id="@+id/tvRating3"
                             android:text="4.9"
                             android:textSize="12sp"
                             android:textColor="@color/black"
                             />
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/tvAddress3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="서울 망원점"
@@ -235,7 +241,6 @@
                         android:textColor="@color/black"
                         />
                 </LinearLayout>
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

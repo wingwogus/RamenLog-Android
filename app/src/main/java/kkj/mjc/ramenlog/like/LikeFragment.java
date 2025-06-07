@@ -62,7 +62,7 @@ public class LikeFragment extends Fragment {
                                         item.getInt("id"),
                                         item.getString("name"),
                                         fullAddress,
-                                        item.getInt("score")
+                                        item.getDouble("avgRating")
                                 ));
                             }
                             adapter.notifyDataSetChanged();

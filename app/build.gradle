@@ -61,13 +61,9 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     implementation libs.volley
-
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
-
     // Retrofit 본체
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //kakao
-    implementation 'com.kakao.maps.open:android:2.12.8'
-    implementation 'com.kakao.maps:vectormap:2.5.1' // 최신 버전
+    implementation libs.android
 }
