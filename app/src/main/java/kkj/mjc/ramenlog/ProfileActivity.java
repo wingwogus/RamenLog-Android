@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity{
     ImageView userImg;
     TabLayout tabLayout;
     ProgressBar progressBar;
+    Button btnfixReview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,11 @@ public class ProfileActivity extends AppCompatActivity{
 
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         String token = prefs.getString("accessToken", null);
+
+        btnfixReview = findViewById(R.id.btn_fix);
+        btnfixReview.setOnClickListener(v -> {
+            startActivity(new Intent(this, DetailActivity.class));
+        });
 
         // 기본 프래그먼트
         MyLogFragment myLofFragment = new MyLogFragment();
