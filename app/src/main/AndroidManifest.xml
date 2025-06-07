@@ -28,18 +28,20 @@
         <activity android:name=".SearchActivity" android:exported="false" />
         <activity 
             android:name=".LoginActivity" 
-            android:exported="true">
+            android:exported="false">
+
+        </activity>
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".ProfileActivity" android:exported="false" />
+        <activity android:name=".RankActivity" android:exported="false" />
+        <activity android:name=".ReviewWriteActivity" android:exported="false"/>
+        <activity android:name=".FindMapActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:exported="false" />
-        <activity android:name=".ProfileActivity" android:exported="false" />
-        <activity android:name=".RankActivity" android:exported="false" />
-        <activity android:name=".ReviewWriteActivity" android:exported="false"/>
-        <activity android:name=".FindMapActivity" android:exported="false"/>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.kakao.vectormap.KakaoMap;
 import com.kakao.vectormap.KakaoMapReadyCallback;
+import com.kakao.vectormap.KakaoMapSdk;
 import com.kakao.vectormap.MapLifeCycleCallback;
 import com.kakao.vectormap.MapView;
 
@@ -31,7 +32,6 @@ public class FindMapActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_findmap);
-
         TextView search_bar = findViewById(R.id.search_bar);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         View bottomSheet = findViewById(R.id.bottom_sheet);
