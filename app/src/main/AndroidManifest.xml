@@ -33,10 +33,6 @@
         android:theme="@style/Theme.RamenLog"
         tools:targetApi="31">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDh-vS_Sd6zyOzgqLxPwK-KeSM92T6H5gE"/>
-
         <activity android:name=".RegisterActivity3" android:exported="false" />
         <activity android:name=".RegisterActivity2" android:exported="false" />
         <activity android:name=".RegisterActivity" android:exported="false" />

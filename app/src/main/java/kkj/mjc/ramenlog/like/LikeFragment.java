@@ -2,6 +2,7 @@ package kkj.mjc.ramenlog.like;
 
 import static com.android.volley.toolbox.Volley.newRequestQueue;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import kkj.mjc.ramenlog.DetailActivity;
 import kkj.mjc.ramenlog.R;
 import kkj.mjc.ramenlog.request.LikeListRequest;
 
@@ -43,6 +45,13 @@ public class LikeFragment extends Fragment {
         adapter = new LikeItemAdapter(likeList);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(item -> {
+            Intent intent = new Intent(requireContext(), DetailActivity.class);
+            intent.putExtra("restaurantId", item.getId());
+            startActivity(intent);
+        });
+
+
         Bundle args = getArguments();
         if (args != null) {
             String token = args.getString("token");
@@ -59,9 +68,10 @@ public class LikeFragment extends Fragment {
                                 String fullAddress = address.getString("fullAddress");
                                 likeList.add(
                                         new LikeItem(
-                                        item.getInt("id"),
+                                        item.getLong("id"),
                                         item.getString("name"),
                                         fullAddress,
+                                        item.getString("imageUrl"),
                                         item.getDouble("avgRating")
                                 ));
                             }

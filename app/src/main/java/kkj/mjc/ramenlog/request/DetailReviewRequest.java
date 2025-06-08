@@ -3,17 +3,27 @@ package kkj.mjc.ramenlog.request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class DetailRequest extends JsonObjectRequest {
-    private static final String URL = "http://10.0.2.2:8080/api/restaurant/";
+public class DetailReviewRequest extends JsonObjectRequest {
+    private static final String URL = "http://10.0.2.2:8080/api/reviews/list";
     private final String token;
 
-    public DetailRequest(String token, String restaurantId, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        super(Method.GET, URL+restaurantId, null, listener, errorListener);
+    public DetailReviewRequest(
+            String token,
+            Response.Listener<JSONObject> listener,
+            Response.ErrorListener errorListener
+    ) {
+        super(Method.POST,
+                URL,
+                null,
+                listener,
+                errorListener);
+
         this.token = token;
     }
 

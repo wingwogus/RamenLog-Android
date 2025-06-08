@@ -7,6 +7,8 @@ import static java.security.AccessController.getContext;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -48,9 +52,18 @@ public class RankActivity extends AppCompatActivity{
         rvRankList.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RankAdapter(rankList);
         rvRankList.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(item -> {
+            Intent intent = new Intent(RankActivity.this, DetailActivity.class);
+            intent.putExtra("restaurantId", item.getId());
+            startActivity(intent);
+        });
+
         TextView[] nameList = {findViewById(R.id.tvRank1), findViewById(R.id.tvRank2), findViewById(R.id.tvRank3)};
         TextView[] ratingList = {findViewById(R.id.tvRating1), findViewById(R.id.tvRating2), findViewById(R.id.tvRating3)};
         TextView[] addressList = {findViewById(R.id.tvAddress1),findViewById(R.id.tvAddress2),findViewById(R.id.tvAddress3)};
+        ImageView[] imageList = {findViewById(R.id.ivRank1), findViewById(R.id.ivRank2),findViewById(R.id.ivRank3)};
+        LinearLayout[] layoutList = {findViewById(R.id.layoutRank1), findViewById(R.id.layoutRank2), findViewById(R.id.layoutRank3)};
 
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         String token = prefs.getString("accessToken", null);
@@ -67,14 +80,24 @@ public class RankActivity extends AppCompatActivity{
                             String fullAddress = address.getString("fullAddress").substring(0,7);
                             String name = item.getString("name");
                             double avgRating = item.getDouble("avgRating");
+                            long id = item.getLong("id");
 
-                            rankList.add(new RankItem(i + 1, name, avgRating));
+                            rankList.add(new RankItem(id, i + 1, name, avgRating));
 
                             // 3위까지
                             if (i < 3) {
                                 nameList[i].setText(name);
                                 ratingList[i].setText(String.valueOf(avgRating));
                                 addressList[i].setText(fullAddress);
+                                Picasso.get()
+                                        .load(item.getString("imageUrl"))
+                                        .into(imageList[i]);
+
+                                layoutList[i].setOnClickListener(v -> {
+                                    Intent intent = new Intent(this, DetailActivity.class);
+                                    intent.putExtra("restaurantId", id);
+                                    startActivity(intent);
+                                });
                             }
 
                         }
