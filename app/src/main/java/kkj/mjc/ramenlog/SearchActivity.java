@@ -21,6 +21,7 @@ import java.util.List;
 
 import kkj.mjc.ramenlog.dto.ApiResponse;
 import kkj.mjc.ramenlog.dto.Restaurant;
+import kkj.mjc.ramenlog.service.RestaurantService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

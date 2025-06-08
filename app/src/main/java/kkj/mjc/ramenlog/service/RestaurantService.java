@@ -1,4 +1,4 @@
-package kkj.mjc.ramenlog;
+package kkj.mjc.ramenlog.service;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public interface RestaurantService {
     Call<ApiResponse<List<Restaurant>>> search (@Query("keyword") String keyword);
 
     @GET("api/restaurant/all")
-    Call<ApiResponse<List<Restaurant>>> getAll();
+    Call<ApiResponse<List<Restaurant>>> getAllRestaurants();
 }
