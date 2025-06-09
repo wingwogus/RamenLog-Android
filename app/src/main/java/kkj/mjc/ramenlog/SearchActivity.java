@@ -1,6 +1,7 @@
 package kkj.mjc.ramenlog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import kkj.mjc.ramenlog.dto.ApiResponse;
 import kkj.mjc.ramenlog.dto.Restaurant;
+import kkj.mjc.ramenlog.service.RestaurantService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     private AutoCompleteTextView searchBox;
     private ImageView backButton;
     private ListView resultList;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<Restaurant> adapter;
     private Drawable clearDrawable;
     private TextView storeTitle;
     private Context context;
@@ -61,8 +63,17 @@ public class SearchActivity extends AppCompatActivity {
         clearDrawable = ContextCompat.getDrawable(this, R.drawable.ic_clear_circle);
         clearDrawable.setBounds(0, 0, clearDrawable.getIntrinsicWidth(), clearDrawable.getIntrinsicHeight());
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<>());
+        adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, new ArrayList<>());
         resultList.setAdapter(adapter);
+
+        resultList.setOnItemClickListener((parent, view, position, id) -> {
+            Restaurant selected = adapter.getItem(position);
+            if (selected != null) {
+                Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
+                intent.putExtra("restaurantId", selected.getId());
+                startActivity(intent);
+            }
+        });
 
         setupSearchBox();
         setupBackButton();
@@ -119,12 +130,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ApiResponse<List<Restaurant>>> call, Response<ApiResponse<List<Restaurant>>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<String> suggestions = new ArrayList<>();
-                    for (Restaurant r : response.body().getData()) {
-                        suggestions.add(r.getName() + "\n" + r.getAddress());
-                    }
+                    List<Restaurant> restaurants = response.body().getData();
                     adapter.clear();
-                    adapter.addAll(suggestions);
+                    adapter.addAll(restaurants);
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -134,51 +142,5 @@ public class SearchActivity extends AppCompatActivity {
                 Log.e("API_ERROR", "검색 실패: " + t.getMessage());
             }
         });
-        // TODO: Retrofit을 통해 백엔드 검색 API 호출
-        // 이 자리에 adapter.clear(); adapter.addAll(결과); adapter.notifyDataSetChanged(); 코드 삽입
     }
 }
-
-//
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.widget.Button;
-//
-//import androidx.appcompat.app.AppCompatActivity;
-//
-//import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-//public class SearchActivity extends AppCompatActivity {
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_search); // 👉 여기에 연결할 레이아웃
-//
-//        // ▶ 리뷰 쓰기 버튼 클릭 시 이동
-//        Button btnWriteReview = findViewById(R.id.btn_write_review);
-//        btnWriteReview.setOnClickListener(v -> {
-//            startActivity(new Intent(this, ReviewWriteActivity.class));
-//        });
-//
-//        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-//
-//        bottomNav.setOnItemSelectedListener(item -> {
-//            int id = item.getItemId();
-//            if (id == R.id.nav_home) {
-//                startActivity(new Intent(this, MainActivity.class));
-//                return true;
-//            } else if (id == R.id.nav_search) {
-//                return true;
-//            } else if (id == R.id.nav_rank) {
-//                startActivity(new Intent(this, RankActivity.class));
-//                return true;
-//            } else if (id == R.id.nav_profile) {
-//                startActivity(new Intent(this, ProfileActivity.class));
-//                return true;
-//            }
-//            return false;
-//        });
-//        bottomNav.setSelectedItemId(R.id.nav_search);
-//    }
-//}
-

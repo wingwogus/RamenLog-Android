@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 if (id == R.id.nav_home) {
                     return true;
                 } else if (id == R.id.nav_search) {
-                    startActivity(new Intent(this, SearchActivity.class));
+                    startActivity(new Intent(this, FindMapActivity.class));
                     return true;
                 } else if (id == R.id.nav_rank) {
                     startActivity(new Intent(this, RankActivity.class));

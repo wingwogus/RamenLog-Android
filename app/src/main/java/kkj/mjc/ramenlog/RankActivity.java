@@ -136,7 +136,7 @@ public class RankActivity extends AppCompatActivity{
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             } else if (id == R.id.nav_search) {
-                startActivity(new Intent(this, SearchActivity.class));
+                startActivity(new Intent(this, FindMapActivity.class));
                 return true;
             } else if (id == R.id.nav_rank) {
                 return true;
