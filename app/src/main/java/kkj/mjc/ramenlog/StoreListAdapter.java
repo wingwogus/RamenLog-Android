@@ -1,12 +1,16 @@
-/*
 package kkj.mjc.ramenlog;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -15,9 +19,19 @@ import kkj.mjc.ramenlog.dto.Restaurant;
 public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.StoreViewHolder> {
 
     private final List<Restaurant> restaurantList;
+    private OnItemClickListener onItemClickListener;
 
     public StoreListAdapter(List<Restaurant> restaurantList) {
         this.restaurantList = restaurantList;
+    }
+
+    // 👇 클릭 리스너 인터페이스 정의
+    public interface OnItemClickListener {
+        void onItemClick(Restaurant restaurant);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 
     @NonNull
@@ -27,21 +41,22 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
         return new StoreViewHolder(view);
     }
 
-*/
-/*    @Override
+    @Override
     public void onBindViewHolder(@NonNull StoreViewHolder holder, int position) {
         Restaurant r = restaurantList.get(position);
         holder.name.setText(r.getName());
         holder.rating.setText("⭐ " + r.getAvgRating());
-        holder.ranking.setText("RoR : " + r.getRank() + "위");
+        holder.ranking.setText("RoR : 3위");
 
-        // Glide 또는 Picasso로 이미지 표시
-        Picasso.with(holder.itemView.getContext())
-                .load(r.getImageUrl())
-                .placeholder(R.drawable.placeholder_image)
-                .into(holder.image);
-    }*//*
+        Picasso.get().load(r.getImageUrl()).into(holder.image);
 
+        // 👇 클릭 시 인터페이스 메서드 호출
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(r);
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
@@ -60,4 +75,4 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Stor
             image = itemView.findViewById(R.id.store_image);
         }
     }
-}*/
+}

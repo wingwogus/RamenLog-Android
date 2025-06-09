@@ -2,11 +2,11 @@ package kkj.mjc.ramenlog.dto;
 
 public class Restaurant {
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -50,23 +50,28 @@ public class Restaurant {
         this.avgRating = avgRating;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return name + "\n" + address;
     }
 
 
-    private Long id;
+    private long id;
     private String name;
     private String address;
 
     private double longitude;
     private double latitude;
     private double avgRating;
-    private String imgUrl;
+    private String imageUrl;
 
 
 }
