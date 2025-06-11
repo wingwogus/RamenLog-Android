@@ -38,7 +38,7 @@
     <ImageView
         android:id="@+id/store_image"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="170dp"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/store_rating"

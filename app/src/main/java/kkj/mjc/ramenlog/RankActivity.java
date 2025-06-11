@@ -61,7 +61,6 @@ public class RankActivity extends AppCompatActivity{
 
         TextView[] nameList = {findViewById(R.id.tvRank1), findViewById(R.id.tvRank2), findViewById(R.id.tvRank3)};
         TextView[] ratingList = {findViewById(R.id.tvRating1), findViewById(R.id.tvRating2), findViewById(R.id.tvRating3)};
-        TextView[] addressList = {findViewById(R.id.tvAddress1),findViewById(R.id.tvAddress2),findViewById(R.id.tvAddress3)};
         ImageView[] imageList = {findViewById(R.id.ivRank1), findViewById(R.id.ivRank2),findViewById(R.id.ivRank3)};
         LinearLayout[] layoutList = {findViewById(R.id.layoutRank1), findViewById(R.id.layoutRank2), findViewById(R.id.layoutRank3)};
 
@@ -88,7 +87,6 @@ public class RankActivity extends AppCompatActivity{
                             if (i < 3) {
                                 nameList[i].setText(name);
                                 ratingList[i].setText(String.valueOf(avgRating));
-                                addressList[i].setText(fullAddress);
                                 Picasso.get()
                                         .load(item.getString("imageUrl"))
                                         .into(imageList[i]);
