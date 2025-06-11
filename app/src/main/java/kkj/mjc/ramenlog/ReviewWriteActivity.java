@@ -2,7 +2,6 @@ package kkj.mjc.ramenlog;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,10 +17,6 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import kkj.mjc.ramenlog.request.ReviewRequest;
 
@@ -77,7 +72,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             } else if (id == R.id.nav_search) {
-                startActivity(new Intent(this, SearchActivity.class));
+                startActivity(new Intent(this, FindMapActivity.class));
                 return true;
             } else if (id == R.id.nav_rank) {
                 startActivity(new Intent(this, RankActivity.class));
@@ -89,7 +84,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
             return false;
         });
         // 현재 선택된 메뉴는 검색 아이콘으로 설정
-        bottomNav.setSelectedItemId(R.id.nav_search);
+        bottomNav.setSelectedItemId(-1);
     }
 
     private void uploadReview() {

@@ -62,9 +62,6 @@ public class MyLogFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         // 어댑터 연결
 
-        // NestedScrollView 안에 있을 경우 부드럽게 스크롤 되도록 설정
-        recycler.setNestedScrollingEnabled(false);
-
         // 어댑터 생성 및 RecyclerView 에 연결
         adapter = new MyLogAdapter(reviewItemList);
         recycler.setAdapter(adapter);

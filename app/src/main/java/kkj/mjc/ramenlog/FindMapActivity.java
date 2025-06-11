@@ -239,11 +239,11 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     // 액티비티 종료 시 위치 업데이트 중단
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (fusedLocationClient != null && locationCallback != null) {
-            fusedLocationClient.removeLocationUpdates(locationCallback);
-        }
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        if (fusedLocationClient != null && locationCallback != null) {
+//            fusedLocationClient.removeLocationUpdates(locationCallback);
+//        }
+//    }
 }

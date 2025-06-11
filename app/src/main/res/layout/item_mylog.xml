@@ -7,7 +7,7 @@
 
     <!-- 상단: 식당명 + 별점 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
@@ -47,7 +47,7 @@
             android:textSize="14sp"/>
     </LinearLayout>
 
-    <!-- 리뷰 이미지 -->
+    <!-- 이미지 둘 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

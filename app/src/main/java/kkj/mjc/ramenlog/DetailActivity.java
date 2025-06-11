@@ -25,12 +25,10 @@ import java.nio.charset.StandardCharsets;
 import kkj.mjc.ramenlog.detail.DetailHomeFragment;
 import kkj.mjc.ramenlog.detail.DetailMenuFragment;
 import kkj.mjc.ramenlog.detail.DetailReviewFragment;
-import kkj.mjc.ramenlog.rank.RankItem;
 import kkj.mjc.ramenlog.request.DetailRequest;
 import kkj.mjc.ramenlog.request.LikeRequest;
 
 public class DetailActivity extends AppCompatActivity {
-    TabLayout tabLayout;
     ImageView ivBack, ivLike;
     TextView tvName, tvAddress, tvRating, tvRank;
 
@@ -172,6 +170,7 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
             } else if (id == R.id.nav_search) {
+                startActivity(new Intent(this, FindMapActivity.class));
                 return true;
             } else if (id == R.id.nav_rank) {
                 startActivity(new Intent(this, RankActivity.class));
@@ -182,7 +181,7 @@ public class DetailActivity extends AppCompatActivity {
             }
             return false;
         });
-        bottomNav.setSelectedItemId(R.id.nav_search);
+        bottomNav.setSelectedItemId(-1);
     }
 
     public void errorHandler(VolleyError error) {
