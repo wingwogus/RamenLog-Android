@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmailVerificationRequest extends JsonObjectRequest {
-    private static final String URL = "http://10.0.2.2:8080/api/auth/sendEmail";
+    private static final String URL = "http://10.0.2.2:8080/api/auth/send-email";
 
     public EmailVerificationRequest(String email,
                                     Response.Listener<JSONObject> listener,

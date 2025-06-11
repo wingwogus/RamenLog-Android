@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FDFDFB">
 
-    <!-- 1) 툴바 -->
+    <!-- 툴바 -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_rank"
         android:layout_width="0dp"
@@ -27,7 +27,7 @@
             android:textSize="16dp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
-    <!-- 2. 내용 영역 -->
+    <!-- 내용 영역 -->
     <ScrollView
         android:id="@+id/scroll_rank"
         android:layout_width="0dp"
@@ -46,7 +46,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             >
-            <!-- 1) Podium: 2위, 1위, 3위 -->
+            <!-- 탑3 강조 부분 -->
             <LinearLayout
                 android:id="@+id/podium_container"
                 android:layout_width="0dp"
@@ -59,6 +59,7 @@
 
                 <!-- 2위 -->
                 <LinearLayout
+                    android:id="@+id/layoutRank2"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_rounded_rank"
@@ -68,7 +69,7 @@
                     android:layout_marginTop="30dp">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="center"
                         >
@@ -79,6 +80,8 @@
                         android:contentDescription="2위 메달" />
 
                     <ImageView
+                        android:id="@+id/ivRank2"
+                        android:background="@drawable/bg_rounded"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/ramen_don"
@@ -86,6 +89,7 @@
                         android:layout_marginTop="4dp"/>
 
                     <TextView
+                        android:id="@+id/tvRank2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="맛스구"
@@ -105,22 +109,17 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/total_score1"
+                                android:id="@+id/tvRating2"
                                 android:text="4.9"
                                 android:textSize="12sp"
                                 android:textColor="@color/black" />
                         </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="서울 응암점"
-                        android:textSize="12sp"
-                        android:textColor="@color/black" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <!-- 1위 -->
                 <LinearLayout
+                    android:id="@+id/layoutRank1"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -135,13 +134,16 @@
                         android:contentDescription="1위 메달" />
 
                     <ImageView
+                        android:id="@+id/ivRank1"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:background="@drawable/bg_rounded"
                         android:src="@drawable/ramen_don"
                         android:scaleType="centerCrop"
                         android:layout_marginTop="4dp"/>
 
                     <TextView
+                        android:id="@+id/tvRank1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="공혁준 라멘"
@@ -161,24 +163,19 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/total_score2"
+                            android:id="@+id/tvRating1"
                             android:text="4.9"
                             android:textSize="12sp"
                             android:textColor="@color/black"
                             />
                     </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="서울 홍대점"
-                        android:textSize="12sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="2dp"/>
 
                 </LinearLayout>
 
                 <!-- 3위 -->
                 <LinearLayout
+                    android:id="@+id/layoutRank3"
+
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -194,13 +191,16 @@
                         android:contentDescription="3위 메달" />
 
                     <ImageView
+                        android:id="@+id/ivRank3"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
+                        android:background="@drawable/bg_rounded"
                         android:src="@drawable/ramen_don"
                         android:scaleType="centerCrop"
                         android:layout_marginTop="4dp"/>
 
                     <TextView
+                        android:id="@+id/tvRank3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="류진노크라에"
@@ -220,21 +220,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/total_score3"
+                            android:id="@+id/tvRating3"
                             android:text="4.9"
                             android:textSize="12sp"
                             android:textColor="@color/black"
                             />
                     </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="서울 망원점"
-                        android:textSize="12sp"
-                        android:textColor="@color/black"
-                        />
                 </LinearLayout>
-
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FDFDFB">
 
-    <!-- 1) 툴바 -->
+    <!-- 툴바 -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_home"
         android:layout_width="0dp"
@@ -31,7 +31,7 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <!-- 2) Content -->
+    <!-- 내용 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scroll_home"
         android:layout_width="0dp"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toTopOf="parent"
             >
 
-            <!-- 2-1) 추천 PICK 라벨 -->
+            <!-- 추천 PICK 타이틀 -->
             <TextView
                 android:id="@+id/label_recommend"
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <!-- 2-2) 추천 PICK 타이틀 -->
+            <!-- 추천 PICK 타이틀 -->
             <TextView
                 android:id="@+id/title_recommend"
                 android:layout_width="wrap_content"
@@ -76,23 +76,87 @@
                 app:layout_constraintLeft_toLeftOf="@+id/label_recommend"
                 android:layout_marginTop="4dp"/>
 
-            <!-- 2-3) 추천 CARD -->
-            <androidx.cardview.widget.CardView
+            <!-- 추천 카드 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/card_recommend"
                 android:layout_width="250dp"
                 android:layout_height="120dp"
-                app:cardCornerRadius="8dp"
-                android:backgroundTint="#FAF4EC"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/bg_rounded"
                 app:cardElevation="2dp"
                 app:layout_constraintTop_toBottomOf="@id/title_recommend"
                 app:layout_constraintLeft_toLeftOf="@+id/title_recommend"
                 android:layout_marginTop="20dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <ImageView
+                        android:id="@+id/iv_recommend_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ramen_don"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        />
+                    <TextView
+                        android:id="@+id/tv_recommend_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="라멘 이름"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_recommend_image"
+                        />
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:id="@+id/iv_star"
+                        android:src="@drawable/ic_star"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_recommend_name"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_recommend_image"
+                        />
+                    <TextView
+                        android:id="@+id/tv_recommend_avgRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.9"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="12dp"
+                        android:layout_marginStart="4dp"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_recommend_name"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_star"
+                        />
+                    <TextView
+                        android:id="@+id/tv_recommend_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="주소"
+                        android:textColor="@color/gray"
+                        android:textSize="12dp"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_recommend_image"
+                        />
 
 
-            </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <!-- 3) ‘라멘의 정석’  타이틀 -->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!-- 라멘의 정석 타이틀 -->
             <TextView
                 android:id="@+id/title_basics"
                 android:layout_width="wrap_content"
@@ -105,7 +169,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/card_recommend"
                 android:layout_marginTop="40dp"/>
 
-            <!-- 4) 아이콘 Row -->
+            <!-- 라멘 종류 아이콘 -->
             <LinearLayout
                 android:id="@+id/layout_basics_icons"
                 android:layout_width="0dp"
@@ -117,7 +181,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="20dp">
 
-                <!-- 4-1) 라멘 -->
+                <!-- 라멘 -->
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -147,7 +211,7 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
-                <!-- 4-2) 토핑 -->
+                <!-- 토핑 -->
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -176,7 +240,7 @@
                         android:textSize="12sp"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
-                <!-- 4-3) 면 -->
+                <!-- 면 -->
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -206,7 +270,7 @@
                         android:layout_marginTop="4dp"
                         />
                 </LinearLayout>
-                <!-- 4-4) 조미료 -->
+                <!-- 조미료 -->
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -238,7 +302,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 5) 대표 라멘, 토핑, 면, 조미료 종류 (가로 스크롤) -->
+            <!-- 종류별 내용 (가로 스크롤) -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_type_items"
                 android:layout_width="0dp"
@@ -258,7 +322,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--     6) 하단 네비게이션 -->
+    <!-- 하단 내비게이션 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"

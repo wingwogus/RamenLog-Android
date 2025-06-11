@@ -35,11 +35,13 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
+        // 회원가입 버튼 클릭 시 회원가입 화면으로 넘어감
         tvRegister.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
 
+        // 로그인 버튼 클릭 시
         btnLogin.setOnClickListener(view -> {
             String email = etId.getText().toString();
             String password = etPasswd.getText().toString();
@@ -56,12 +58,15 @@ public class LoginActivity extends AppCompatActivity {
                                 return;
                             }
 
+                            // 토큰 추출
                             JSONObject data = response.getJSONObject("data");
                             String token = data.getString("accessToken");
 
+                            // 토큰 저장
                             SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
                             prefs.edit().putString("accessToken", token).apply();
 
+                            // 메인 화면 이동
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -74,17 +79,18 @@ public class LoginActivity extends AppCompatActivity {
                         if (error.networkResponse != null) {
                             int status = error.networkResponse.statusCode;
                             String body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                            // 서버가 ErrorResponse 구조로 보냈다면 body에서 message 파싱 가능
+                            // 서버 응답 파싱
                             try {
                                 JSONObject errJson = new JSONObject(body);
                                 String serverMsg = errJson.optString("message");
                                 Toast.makeText(this, serverMsg, Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
+                                // 서버 오류 상태 출력
                                 Toast.makeText(this, "서버 오류: " + status, Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            // 네트워크 자체 문제
-                            Toast.makeText(this, "네트워크 연결을 확인하세요.", Toast.LENGTH_SHORT).show();
+                            // 네트워크 오류
+                            Toast.makeText(this, "네트워크 연결 오류", Toast.LENGTH_SHORT).show();
                         }
                     }
             );

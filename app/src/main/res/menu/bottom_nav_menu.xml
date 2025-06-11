@@ -6,7 +6,7 @@
         android:title="홈" />
     <item
         android:id="@+id/nav_search"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_search_small"
         android:title="검색" />
     <item
         android:id="@+id/nav_rank"

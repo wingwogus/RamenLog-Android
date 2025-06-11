@@ -14,6 +14,16 @@ import java.util.List;
 public class RankAdapter
         extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
 
+    public interface OnItemClickListener {
+        void onItemClick(RankItem item);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     private final List<RankItem> items;
 
     public RankAdapter(List<RankItem> items) {
@@ -33,6 +43,11 @@ public class RankAdapter
         h.tvRankNumber.setText(String.valueOf(item.getRank()));
         h.tvRestaurantName.setText(item.getRestaurantName());
         h.tvRating.setText(String.valueOf(item.getRating()));
+        h.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(item);
+            }
+        });
     }
 
     @Override
