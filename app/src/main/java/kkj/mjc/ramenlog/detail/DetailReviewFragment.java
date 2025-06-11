@@ -43,22 +43,28 @@ public class DetailReviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        // fragment_detail_review레이아웃 inflate
         View view = inflater.inflate(R.layout.fragment_detail_review, container, false);
 
         recycler = view.findViewById(R.id.recycler_detail_review);
-        // 1) 레이아웃 매니저
+
+        // RecyclerView레이아웃 매니저 설정 (세로 방향 리스트 구성)
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        // 2) 스크롤뷰 안에 있을 때 스무스하게
+
+        // NestedScrollView 안에 있을 경우 부드럽게 스크롤 되도록 설정
         recycler.setNestedScrollingEnabled(false);
-        // 어댑터 연결
+
+        // 어댑터 생성 및 RecyclerView 에 연결
         adapter = new DetailReviewAdapter(reviewItemList);
         recycler.setAdapter(adapter);
 
-        loadMyReviews();
+        // 매장 리뷰 목록 불러오기
+        loadStoreReviews();
 
         // 리뷰 쓰기 버튼 클릭 시 이동
         btnWriteReview = view.findViewById(R.id.btn_write_review);
         btnWriteReview.setOnClickListener(v -> {
+            // 현재 화면에 전달된 arguments 에서 restaurantId, restaurantName 가져오기
             Long currentRestaurantId = -1L;
             String currentRestaurantName = null;
             if (getArguments() != null) {
@@ -66,24 +72,33 @@ public class DetailReviewFragment extends Fragment {
                 currentRestaurantId = arguments.getLong("restaurantId", -1L);
                 currentRestaurantName = arguments.getString("restaurantName", "없음");
             }
+            // 리뷰 작성 화면으로 이동 (restaurantId, restaurantName 전달)
             Intent intent = new Intent(getActivity(), ReviewWriteActivity.class);
-            intent.putExtra("restaurantId", currentRestaurantId);// ⭐ 여기에 현재 화면에서 보고 있는 restaurantId 를 넘겨야 함
+            intent.putExtra("restaurantId", currentRestaurantId);// 현재 화면의 restaurantId를 넘김
             intent.putExtra("restaurantName", currentRestaurantName);
             startActivity(intent);
         });
         return view;
     }
-    private void loadMyReviews() {
+
+    // 매장 리뷰 목록 데이터 불러오는 메소드
+    private void loadStoreReviews() {
+        // arguments 에서 token 가져오기
         Bundle args = getArguments();
         if (args != null) {
             String token = args.getString("token");
             if(token != null) {
+                // 매장 상세 리뷰 리스트를 요청하는 DetailReviewRequest
                 JsonObjectRequest req = new DetailReviewRequest(
                         token,
                         response -> {
                             try {
                                 JSONArray data = response.getJSONArray("data");
+
+                                // 기존 리뷰 리스트 초기화
                                 reviewItemList.clear();
+
+                                // 각 리뷰 아이템 파싱
                                 for (int i = 0; i < data.length(); i++) {
                                     JSONObject obj = data.getJSONObject(i);
                                     String name = obj.getString("nickname");
@@ -99,12 +114,15 @@ public class DetailReviewFragment extends Fragment {
                                         if (imgs.length() > 2) url3 = imgs.getString(2);
                                     }
 
+                                    // DetailReviewItem 객체 생성 후 리스트에 추가
                                     reviewItemList.add(new DetailReviewItem(
                                             name, rating,
                                             url1, url2, url3,
                                             content
                                     ));
                                 }
+
+                                // RecyclerView 갱신
                                 adapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -115,6 +133,7 @@ public class DetailReviewFragment extends Fragment {
                         }
                 );
 
+                // 요청 큐에 추가
                 Volley.newRequestQueue(requireContext())
                         .add(req);
             }

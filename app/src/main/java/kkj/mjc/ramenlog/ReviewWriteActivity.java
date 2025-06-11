@@ -51,7 +51,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         restaurantId = intent.getLongExtra("restaurantId", -1L);
         tvName.setText(intent.getStringExtra("restaurantName"));
 
-        // 1) 사진 업로드 버튼
+        // 사진 업로드 버튼
         btnuploadphoto.setOnClickListener(v -> {
             Intent i = new Intent(Intent.ACTION_PICK);
             i.setType("image/*");
@@ -59,26 +59,24 @@ public class ReviewWriteActivity extends AppCompatActivity {
             startActivityForResult(Intent.createChooser(i, "사진 선택"), REQ_PICK_IMAGES);
         });
 
-        // 2) 리뷰 등록 버튼
+        // 리뷰 등록 버튼
         btnsubmitreview.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setMessage("리뷰를 등록하시겠습니까?")
-                    .setPositiveButton("확인", (d, w) -> uploadReview())
+                    .setPositiveButton("확인", (d, w) -> uploadReview()) // 확인 클릭 시 리뷰 업로드
                     .setNegativeButton("취소", null)
                     .show();
         });
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        // ✅ 이걸 먼저 호출해서 시각적 강조만 적용
-        bottomNav.setSelectedItemId(R.id.nav_search);
 
+        // 하단 네비게이션 메뉴 클릭 시 화면 이동 처리
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
-            } else if (id == R.id.nav_search) { // ✅ 현재 화면이 "리뷰 작성"이면 검색 탭 클릭도 무시
-                // if (!(this instanceof SearchActivity)) {
+            } else if (id == R.id.nav_search) {
                 startActivity(new Intent(this, SearchActivity.class));
                 return true;
             } else if (id == R.id.nav_rank) {
@@ -90,22 +88,24 @@ public class ReviewWriteActivity extends AppCompatActivity {
             }
             return false;
         });
-
+        // 현재 선택된 메뉴는 검색 아이콘으로 설정
+        bottomNav.setSelectedItemId(R.id.nav_search);
     }
 
     private void uploadReview() {
-        // 1) EditText 와 RatingBar 에서 값 꺼내기
+        // EditText 와 RatingBar 에서 값 꺼내기
         String content = edtReview.getText().toString().trim();
         float ratingFloat = ratingBar.getRating();
         Double rating = (double) ratingFloat;  // DTO 가 Double 이니까 변환
 
+        // 토큰 가져오기
         SharedPreferences pref = getSharedPreferences("auth", MODE_PRIVATE);
         String token = pref.getString("accessToken", null);
         if (token == null) {
             Toast.makeText(this, "로그인 필요", Toast.LENGTH_SHORT).show();
             return;
         }
-        // 2) DTO 에 세팅
+        // 리뷰 내용 정보를 요청하는 ReviewRequest
         ReviewRequest dto = new ReviewRequest(
                 token,restaurantId, rating, content,
                 response -> {

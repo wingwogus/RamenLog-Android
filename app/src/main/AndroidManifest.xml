@@ -43,16 +43,14 @@
         <activity android:name=".RegisterActivity2" android:exported="false" />
         <activity android:name=".RegisterActivity" android:exported="false" />
         <activity android:name=".SearchActivity" android:exported="false" />
-        <activity 
-            android:name=".LoginActivity" 
-            android:exported="false"/>
+        <activity android:name=".FindMapActivity" android:exported="false"/>
         <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".ProfileActivity" android:exported="false" />
         <activity android:name=".RankActivity" android:exported="false" />
         <activity android:name=".ReviewWriteActivity" android:exported="false"/>
         <activity android:name=".DetailActivity" android:exported="false"/>
 
-        <activity android:name=".FindMapActivity" android:exported="true">
+        <activity android:name=".LoginActivity" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
