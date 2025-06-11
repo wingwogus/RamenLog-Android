@@ -38,28 +38,35 @@ public class LikeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        // 레이아웃 로드
         View view = inflater.inflate(R.layout.fragment_like, container, false);
 
+        // RecyclerView 초기화
         recyclerView = view.findViewById(R.id.recycler_like);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        // 어댑터 연결
         adapter = new LikeItemAdapter(likeList);
         recyclerView.setAdapter(adapter);
 
+        // 상세 페이지 이동
         adapter.setOnItemClickListener(item -> {
             Intent intent = new Intent(requireContext(), DetailActivity.class);
             intent.putExtra("restaurantId", item.getId());
             startActivity(intent);
         });
 
-
+        // JWT 토큰 확인
         Bundle args = getArguments();
         if (args != null) {
             String token = args.getString("token");
             if (token != null) {
+                // 서버 요청
                 LikeListRequest request = new LikeListRequest(
                     token,
                     response -> {
                         try {
+                            // JSON 파싱
                             JSONArray data = response.getJSONArray("data");
                             likeList.clear();
                             for (int i = 0; i < data.length(); i++) {
@@ -75,8 +82,10 @@ public class LikeFragment extends Fragment {
                                         item.getDouble("avgRating")
                                 ));
                             }
+                            // 리스트 갱신
                             adapter.notifyDataSetChanged();
                         } catch (Exception e) {
+                            // 예외 로그 출력
                             e.printStackTrace();
                         }
                     },
@@ -84,7 +93,7 @@ public class LikeFragment extends Fragment {
                         if (error.networkResponse != null) {
                             int status = error.networkResponse.statusCode;
                             String body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                            // 서버가 ErrorResponse 구조로 보냈다면 body에서 message 파싱 가능
+                            // 서버 에러 응답 처리
                             try {
                                 JSONObject errJson = new JSONObject(body);
                                 String serverMsg = errJson.optString("message");
@@ -93,11 +102,12 @@ public class LikeFragment extends Fragment {
                                 Toast.makeText(getContext(), "서버 오류: " + status, Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            // 네트워크 자체 문제
+                            // 네트워크 문제 처리
                             Toast.makeText(getContext(), "네트워크 연결을 확인하세요.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 );
+                // 요청 큐 등록
                 RequestQueue queue = newRequestQueue(requireContext());
                 queue.add(request);
             }

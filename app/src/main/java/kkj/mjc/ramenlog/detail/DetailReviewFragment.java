@@ -26,17 +26,15 @@ import java.util.List;
 
 import kkj.mjc.ramenlog.R;
 import kkj.mjc.ramenlog.ReviewWriteActivity;
-import kkj.mjc.ramenlog.mylog.MyLogAdapter;
-import kkj.mjc.ramenlog.mylog.ReviewItem;
-import kkj.mjc.ramenlog.request.DetailRequest;
 import kkj.mjc.ramenlog.request.DetailReviewRequest;
-import kkj.mjc.ramenlog.request.ReviewListRequest;
 
 public class DetailReviewFragment extends Fragment {
     TextView btnWriteReview;
     private RecyclerView recycler;
     private DetailReviewAdapter adapter;
     private List<DetailReviewItem> reviewItemList = new ArrayList<>();
+
+    private Long restaurantId;
 
     @Nullable
     @Override
@@ -54,21 +52,25 @@ public class DetailReviewFragment extends Fragment {
         adapter = new DetailReviewAdapter(reviewItemList);
         recycler.setAdapter(adapter);
 
+
+
+        String currentRestaurantName = "없음";
+
+        if (getArguments() != null) {
+            Bundle arguments = getArguments();
+            restaurantId = arguments.getLong("restaurantId", -1L);
+            currentRestaurantName = arguments.getString("restaurantName", "없음");
+        }
+
+        String finalRestaurantName = currentRestaurantName;
+
         loadMyReviews();
 
-        // 리뷰 쓰기 버튼 클릭 시 이동
         btnWriteReview = view.findViewById(R.id.btn_write_review);
         btnWriteReview.setOnClickListener(v -> {
-            Long currentRestaurantId = -1L;
-            String currentRestaurantName = null;
-            if (getArguments() != null) {
-                Bundle arguments = getArguments();
-                currentRestaurantId = arguments.getLong("restaurantId", -1L);
-                currentRestaurantName = arguments.getString("restaurantName", "없음");
-            }
-            Intent intent = new Intent(getActivity(), ReviewWriteActivity.class);
-            intent.putExtra("restaurantId", currentRestaurantId);// ⭐ 여기에 현재 화면에서 보고 있는 restaurantId 를 넘겨야 함
-            intent.putExtra("restaurantName", currentRestaurantName);
+            Intent intent = new Intent(getContext(), ReviewWriteActivity.class);
+            intent.putExtra("restaurantId", restaurantId);
+            intent.putExtra("restaurantName", finalRestaurantName);
             startActivity(intent);
         });
         return view;
@@ -80,6 +82,7 @@ public class DetailReviewFragment extends Fragment {
             if(token != null) {
                 JsonObjectRequest req = new DetailReviewRequest(
                         token,
+                        String.valueOf(restaurantId),
                         response -> {
                             try {
                                 JSONArray data = response.getJSONArray("data");

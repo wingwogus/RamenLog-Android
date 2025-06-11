@@ -55,13 +55,9 @@ public class ProfileActivity extends AppCompatActivity{
         remainingReviewCount = findViewById(R.id.remaining_count);
         progressBar = findViewById(R.id.grade_progressbar);
 
+        // 토큰 꺼내오기
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         String token = prefs.getString("accessToken", null);
-
-        btnfixReview = findViewById(R.id.btn_fix);
-        btnfixReview.setOnClickListener(v -> {
-            startActivity(new Intent(this, DetailActivity.class));
-        });
 
         // 기본 프래그먼트
         MyLogFragment myLofFragment = new MyLogFragment();
@@ -70,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity{
         Bundle args = new Bundle();
         args.putString("token", token);
 
+        // 토큰 번들에 저장
         myLofFragment.setArguments(args);
         likeFragment.setArguments(args);
 
@@ -97,9 +94,12 @@ public class ProfileActivity extends AppCompatActivity{
                         startReviewCount.setText(String.valueOf(start));
                         endReviewCount.setText(String.valueOf(end));
                         remainingReviewCount.setText(data.getInt("remainingReviewCount") + "그릇");
+                        // 서버에서 받아온 리뷰 수(reviewCount)를 이용해 '마이 로그' 탭 텍스트를 "마이 로그 {n}" 형식으로 설정
                         tabLayout.getTabAt(0).setText("마이 로그 " + reviewCount);
+                        // 서버에서 받아온 좋아요 수(likeCount)를 이용해 '찜 그릇' 탭 텍스트를 "찜 그릇 {n}" 형식으로 설정
                         tabLayout.getTabAt(1).setText("찜 그릇 " + data.getInt("likeCount"));
 
+                        // 다음 등급까지 남은 진행도 프로그레스 바에 표시
                         int progress = 0;
                         if (end > start) {
                             progress = (int) (((double)(reviewCount - start) / (end - start)) * 100);
@@ -130,6 +130,7 @@ public class ProfileActivity extends AppCompatActivity{
                         Toast.makeText(this, "네트워크 연결을 확인하세요.", Toast.LENGTH_SHORT).show();
                     }
                 }));
+
         // 탭 클릭 시 프래그먼트 변경
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

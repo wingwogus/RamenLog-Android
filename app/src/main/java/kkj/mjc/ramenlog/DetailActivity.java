@@ -49,29 +49,34 @@ public class DetailActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("auth", MODE_PRIVATE);
         String token = prefs.getString("accessToken", null);
 
-        // ⭐⭐⭐ restaurantId 받아오기 ⭐⭐⭐
+        // restaurantId 추출
         Long restaurantId = getIntent().getLongExtra("restaurantId", -1L);
 
-        // 기본 프래그먼트
+        // 프래그먼트 초기화
         DetailHomeFragment homeFragment = new DetailHomeFragment();
         DetailMenuFragment menuFragment = new DetailMenuFragment();
         DetailReviewFragment reviewFragment = new DetailReviewFragment();
 
+
         Bundle args = new Bundle();
         args.putString("token", token);
-        args.putLong("restaurantId", restaurantId);  // ⭐⭐⭐ 추가 ⭐⭐⭐
+        args.putLong("restaurantId", restaurantId);
 
         DetailRequest detailRequest = new DetailRequest(token, String.valueOf(restaurantId),
                 response -> {
                     try {
                         JSONObject data = response.getJSONObject("data");
+
                         JSONObject address = data.getJSONObject("address");
                         tvAddress.setText(address.getString("fullAddress"));
+
+                        // 식당 이름 추출 후 텍스트뷰에 설정 및 프래그먼트 전달용 Bundle에 추가
                         String name = data.getString("name");
                         tvName.setText(name);
                         args.putString("restaurantName", name);
                         tvRating.setText(data.getDouble("avgRating") + "");
 
+                        // 배경 이미지 URL이 "null"이 아닌 경우 이미지 로딩 후 이미지뷰에 표시
                         String imageUrl = data.getString("imageUrl");
                         if (!imageUrl.equals("null")) {
                             Picasso.get()
@@ -79,7 +84,8 @@ public class DetailActivity extends AppCompatActivity {
                                     .into(ivBack);
                         }
 
-                        if(data.getBoolean("liked")) {
+                        // 좋아요 여부에 따라 하트 이미지 설정
+                        if (data.getBoolean("liked")) {
                             ivLike.setImageResource(R.drawable.ic_like);
                         } else {
                             ivLike.setImageResource(R.drawable.ic_unlike);
@@ -92,13 +98,14 @@ public class DetailActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(detailRequest);
 
+        // 좋아요 버튼 클릭
         ivLike.setOnClickListener(v -> {
             LikeRequest likeRequest = new LikeRequest(token, String.valueOf(restaurantId),
                     response -> {
+                        // 성공 시 데이터 새로고침
                         queue.add(detailRequest);
                     },
                     this::errorHandler);
-
             queue.add(likeRequest);
         });
 
@@ -109,12 +116,12 @@ public class DetailActivity extends AppCompatActivity {
         // TabLayout 찾기
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
-        // 탭 추가
+        // 탭 구성
         tabLayout.addTab(tabLayout.newTab().setText("홈"));
         tabLayout.addTab(tabLayout.newTab().setText("메뉴"));
         tabLayout.addTab(tabLayout.newTab().setText("리뷰"));
 
-        // 4️⃣ 탭 선택 리스너 등록
+        // 탭 전환 처리
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -131,9 +138,9 @@ public class DetailActivity extends AppCompatActivity {
                         break;
                 }
 
-                // Fragment 교체
+                // 프래그먼트 교체
                 if (selectedFragment != null) {
-                    selectedFragment.setArguments(args);  // ⭐⭐ 꼭 필요 ⭐⭐
+                    selectedFragment.setArguments(args);
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.tab_fragment_container, selectedFragment)
                             .commit();
@@ -176,7 +183,7 @@ public class DetailActivity extends AppCompatActivity {
         if (error.networkResponse != null) {
             int status = error.networkResponse.statusCode;
             String body = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-            // 서버가 ErrorResponse 구조로 보냈다면 body에서 message 파싱 가능
+            // 서버 응답 파싱
             try {
                 JSONObject errJson = new JSONObject(body);
                 String serverMsg = errJson.optString("message");
@@ -185,7 +192,7 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(this, "서버 오류: " + status, Toast.LENGTH_SHORT).show();
             }
         } else {
-            // 네트워크 자체 문제
+            // 네트워크 오류
             Toast.makeText(this, "네트워크 연결을 확인하세요.", Toast.LENGTH_SHORT).show();
         }
     }

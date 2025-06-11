@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ReviewListRequest extends JsonObjectRequest {
-    private static final String URL = "http://10.0.2.2:8080/api/reviews/list";
+    private static final String URL = "http://10.0.2.2:8080/api/reviews/";
     private final String token;
 
     public ReviewListRequest(
@@ -18,7 +18,7 @@ public class ReviewListRequest extends JsonObjectRequest {
             Response.Listener<JSONObject> listener,
             Response.ErrorListener errorListener
     ) {
-        super(Method.POST,
+        super(Method.GET,
                 URL,
                 null,
                 listener,
