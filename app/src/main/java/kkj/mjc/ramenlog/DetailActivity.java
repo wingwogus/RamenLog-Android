@@ -90,6 +90,16 @@ public class DetailActivity extends AppCompatActivity {
                         } else {
                             ivLike.setImageResource(R.drawable.ic_unlike);
                         }
+                        args.putDouble("longitude" , data.getDouble("longitude"));
+                        args.putDouble("latitude" , data.getDouble("latitude"));
+                        args.putString("fullAddress" , address.getString("fullAddress"));
+                        args.putString("restaurantName" , data.getString("name"));
+
+                        homeFragment.setArguments(args);
+
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.tab_fragment_container, homeFragment)
+                                .commit();
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
@@ -153,10 +163,6 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.tab_fragment_container, homeFragment)
-                .commit();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
 

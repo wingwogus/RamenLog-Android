@@ -52,7 +52,7 @@
             android:layout_width="60dp"
             android:layout_height="6dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_bottom_sheet" />
 
 

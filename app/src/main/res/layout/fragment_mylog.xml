@@ -32,7 +32,7 @@
         </LinearLayout>
 
 
-        <!-- 로그 RecyclerView (고정 높이 설정 or nested scrolling false) -->
+        <!-- 마이로그 RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_mylog"
             android:layout_width="match_parent"

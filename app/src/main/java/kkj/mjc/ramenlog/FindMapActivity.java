@@ -5,14 +5,9 @@ import static kkj.mjc.ramenlog.DistanceUtils.calculateDistance;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,24 +21,16 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kkj.mjc.ramenlog.dto.ApiResponse;
 import kkj.mjc.ramenlog.dto.Restaurant;
@@ -54,35 +41,40 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
+// 지도 및 맛집 목록을 표시하는 액티비티
 public class FindMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    // 구글 맵 객체
     GoogleMap mMap;
+
+    // 위치 추적 클라이언트 및 콜백
     private FusedLocationProviderClient fusedLocationClient;
     private com.google.android.gms.location.LocationCallback locationCallback;
-    private boolean isCameraMoved = false; // 🔸 최초 한 번만 카메라 이동
 
+    // 카메라가 한 번만 사용자 위치로 이동되었는지 여부
+    private boolean isCameraMoved = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_findmap);
 
+        // UI 요소 초기화
         TextView search_bar = findViewById(R.id.search_bar);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         View bottomSheet = findViewById(R.id.bottom_sheet);
         RecyclerView storeList = findViewById(R.id.store_list);
 
-
+        // BottomSheet 설정 (반쯤 열린 상태로 시작)
         BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(bottomSheet);
         behavior.setDraggable(true);
-        behavior.setHideable(false); // STATE_HIDDEN은 사용하지 않음
-        behavior.setFitToContents(false); // HALF 상태 구분 가능
-        behavior.setHalfExpandedRatio(0.5f); // 50%까지 내려감
-        behavior.setPeekHeight(300); // 최소 내려갈 높이 설정 (px 단위)
-        behavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED); // 시작은 반쯤 열림
+        behavior.setHideable(false);
+        behavior.setFitToContents(false);
+        behavior.setHalfExpandedRatio(0.5f);
+        behavior.setPeekHeight(300);
+        behavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
 
-        // ✅ 여기에 위치 권한 요청 넣기 (if문으로)
+        // 위치 권한 체크 및 요청
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -91,21 +83,19 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                     100);
         }
 
+        // Map Fragment 설정 및 비동기 초기화
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
 
-
-
-        search_bar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(FindMapActivity.this, SearchActivity.class));
-            }
+        // 검색바 클릭 시 검색 화면으로 이동
+        search_bar.setOnClickListener(v -> {
+            startActivity(new Intent(FindMapActivity.this, SearchActivity.class));
         });
 
+        // 바텀시트 상태 변화 로깅
         behavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -118,9 +108,10 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
+        // 가게 리스트 RecyclerView 설정
         storeList.setLayoutManager(new LinearLayoutManager(this));
 
-
+        // 하단 네비게이션 바 클릭 처리
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
@@ -137,37 +128,41 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
             return false;
         });
+
+        // 현재 페이지를 선택된 상태로 표시
         bottomNav.setSelectedItemId(R.id.nav_search);
     }
 
+    // GoogleMap 객체가 준비되었을 때 실행되는 콜백
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        // 위치 권한 재확인
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
             return;
         }
 
+        // 현재 위치 버튼 및 파란 점 표시 활성화
         mMap.setMyLocationEnabled(true);
 
+        // 지도 클릭 시 바텀시트를 아래로 내림
         mMap.setOnMapClickListener(latLng -> {
             BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet));
-            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED); // 아래로 내리기
+            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         });
 
-
-
-        // ⭐ 실시간 위치 업데이트 반영 추가 시작
-        this.fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+        // 위치 업데이트 관련 설정
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         com.google.android.gms.location.LocationRequest locationRequest =
                 com.google.android.gms.location.LocationRequest.create()
                         .setPriority(com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY)
-                        .setInterval(5000) // 5초마다 위치 갱신
-                        .setFastestInterval(2000); // 최소 간격
+                        .setInterval(5000)
+                        .setFastestInterval(2000);
 
-        locationCallback = new com.google.android.gms.location.LocationCallback(){
+        // 위치 콜백 정의
+        locationCallback = new com.google.android.gms.location.LocationCallback() {
             @Override
             public void onLocationResult(com.google.android.gms.location.LocationResult locationResult) {
                 if (locationResult == null) return;
@@ -180,25 +175,24 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
         };
 
-        //맵 이동시 위치 업데이트 요청보내는거 수정해야댐
-
-        // 위치 업데이트 요청
+        // 위치 업데이트 요청 시작
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
 
+        // 마지막 위치를 받아 지도 초기 위치 설정 및 맛집 API 호출
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
                         LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
 
-                        // Retrofit 설정
+                        // Retrofit 인스턴스 생성
                         Retrofit retrofit = new Retrofit.Builder()
                                 .baseUrl("http://10.0.2.2:8080/")
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .build();
-
                         RestaurantService rs = retrofit.create(RestaurantService.class);
 
+                        // 맛집 리스트 API 호출
                         rs.getAllRestaurants().enqueue(new Callback<ApiResponse<List<Restaurant>>>() {
                             @Override
                             public void onResponse(Call<ApiResponse<List<Restaurant>>> call, Response<ApiResponse<List<Restaurant>>> response) {
@@ -212,27 +206,26 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                                         return Double.compare(dist1, dist2);
                                     });
 
-                                    // 마커 추가
+                                    // 지도에 마커 추가
                                     for (Restaurant r : restaurantList) {
                                         LatLng position = new LatLng(r.getLatitude(), r.getLongitude());
-
                                         mMap.addMarker(new MarkerOptions()
-                                                .position(position)
-                                                .title(r.getName()))
+                                                        .position(position)
+                                                        .title(r.getName()))
                                                 .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ramen));
                                     }
 
-                                    // RecyclerView에 데이터 연결
+                                    // 리스트에 데이터 연결
                                     StoreListAdapter adapter = new StoreListAdapter(restaurantList);
                                     RecyclerView storeList = findViewById(R.id.store_list);
                                     storeList.setAdapter(adapter);
 
+                                    // 가게 아이템 클릭 시 상세 페이지 이동
                                     adapter.setOnItemClickListener(item -> {
                                         Intent intent = new Intent(FindMapActivity.this, DetailActivity.class);
                                         intent.putExtra("restaurantId", item.getId());
                                         startActivity(intent);
                                     });
-
                                 }
                             }
 
@@ -245,6 +238,7 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                 });
     }
 
+    // 액티비티 종료 시 위치 업데이트 중단
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -252,5 +246,4 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
             fusedLocationClient.removeLocationUpdates(locationCallback);
         }
     }
-
 }
