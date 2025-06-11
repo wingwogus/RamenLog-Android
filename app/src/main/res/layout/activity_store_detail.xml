@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FDFDFB">
 
-    <!-- 1) 툴바 -->
+    <!-- 툴바 -->
     <ImageView
         android:id="@+id/toolbar_detail"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:scaleType="centerCrop"
         >
     </ImageView>
-    <!-- 2. 내용 영역 -->
+    <!-- 내용 영역 -->
     <ScrollView
         android:id="@+id/scroll_detail"
         android:layout_width="0dp"
@@ -166,7 +166,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <!-- 하단 네비게이션 -->
+    <!-- 하단 내비게이션 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"

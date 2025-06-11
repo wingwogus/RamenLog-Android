@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FDFDFB">
 
-    <!-- 1) 툴바 -->
+    <!-- 툴바 -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_home"
         android:layout_width="0dp"
@@ -31,7 +31,7 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <!-- 2) Content -->
+    <!-- 내용 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scroll_home"
         android:layout_width="0dp"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toTopOf="parent"
             >
 
-            <!-- 2-1) 추천 PICK 라벨 -->
+            <!-- 추천 PICK 타이틀 -->
             <TextView
                 android:id="@+id/label_recommend"
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <!-- 2-2) 추천 PICK 타이틀 -->
+            <!-- 추천 PICK 타이틀 -->
             <TextView
                 android:id="@+id/title_recommend"
                 android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/label_recommend"
                 android:layout_marginTop="4dp"/>
 
-            <!-- 2-3) 추천 카드 -->
+            <!-- 추천 카드 -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/card_recommend"
                 android:layout_width="250dp"
@@ -156,7 +156,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <!-- 3) ‘라멘의 정석’  타이틀 -->
+            <!-- 라멘의 정석 타이틀 -->
             <TextView
                 android:id="@+id/title_basics"
                 android:layout_width="wrap_content"
@@ -169,7 +169,7 @@
                 app:layout_constraintLeft_toLeftOf="@+id/card_recommend"
                 android:layout_marginTop="40dp"/>
 
-            <!-- 4) 아이콘 Row -->
+            <!-- 라멘 종류 아이콘 -->
             <LinearLayout
                 android:id="@+id/layout_basics_icons"
                 android:layout_width="0dp"
@@ -181,7 +181,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="20dp">
 
-                <!-- 4-1) 라멘 -->
+                <!-- 라멘 -->
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -211,7 +211,7 @@
                         android:textColor="@color/black"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
-                <!-- 4-2) 토핑 -->
+                <!-- 토핑 -->
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -240,7 +240,7 @@
                         android:textSize="12sp"
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
-                <!-- 4-3) 면 -->
+                <!-- 면 -->
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -270,7 +270,7 @@
                         android:layout_marginTop="4dp"
                         />
                 </LinearLayout>
-                <!-- 4-4) 조미료 -->
+                <!-- 조미료 -->
                 <LinearLayout
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
@@ -302,7 +302,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 5) 대표 라멘, 토핑, 면, 조미료 종류 (가로 스크롤) -->
+            <!-- 종류별 내용 (가로 스크롤) -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_type_items"
                 android:layout_width="0dp"
@@ -322,7 +322,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--     6) 하단 네비게이션 -->
+    <!-- 하단 내비게이션 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"

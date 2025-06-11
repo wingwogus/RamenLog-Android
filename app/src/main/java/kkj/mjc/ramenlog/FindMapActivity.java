@@ -120,7 +120,7 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
 
         storeList.setLayoutManager(new LinearLayoutManager(this));
 
-
+        // 하단 네비게이션 메뉴 클릭 시 화면 이동 처리
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
@@ -137,6 +137,7 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
             return false;
         });
+        // 현재 선택된 메뉴는 검색 아이콘으로 설정
         bottomNav.setSelectedItemId(R.id.nav_search);
     }
 

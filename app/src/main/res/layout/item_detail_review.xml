@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:padding="12dp">
 
-    <!-- 상단: 유저명 + 별점 -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +39,7 @@
             android:textSize="12sp"/>
     </LinearLayout>
 
-    <!-- 이미지 둘 -->
+    <!-- 리뷰 이미지 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
