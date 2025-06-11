@@ -144,6 +144,7 @@ public class RankActivity extends AppCompatActivity{
             }
             return false;
         });
+        // 현재 선택된 메뉴는 랭킹 아이콘으로 설정
         bottomNav.setSelectedItemId(R.id.nav_rank);
     }
 }

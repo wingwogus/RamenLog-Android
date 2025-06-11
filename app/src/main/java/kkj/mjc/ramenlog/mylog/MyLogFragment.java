@@ -28,8 +28,13 @@ import kkj.mjc.ramenlog.R;
 import kkj.mjc.ramenlog.request.ReviewListRequest;
 
 public class MyLogFragment extends Fragment {
+    // 내 리뷰 목록을 리스트 형태로 보여주는 뷰
     private RecyclerView recycler;
+
+    // RecyclerView와 데이터를 연결하는 역할
     private MyLogAdapter adapter;
+
+    // 서버에서 받아온 내 리뷰 목록 데이터를 저장
     private List<ReviewItem> reviewItemList = new ArrayList<>();
 
     @Nullable
@@ -37,33 +42,43 @@ public class MyLogFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        // fragment_mylog.xml 레이아웃을 inflate 해서 View 객체 생성
         View view = inflater.inflate(R.layout.fragment_mylog, container, false);
 
         recycler = view.findViewById(R.id.recycler_mylog);
-        // 1) 레이아웃 매니저
+        // RecyclerView의 레이아웃 매니저 설정 (세로 방향 리스트 구성)
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        // 2) 스크롤뷰 안에 있을 때 스무스하게
+
+        // NestedScrollView 안에 있을 경우 부드럽게 스크롤 되도록 설정
         recycler.setNestedScrollingEnabled(false);
-        // 어댑터 연결
+
+        // 어댑터 생성 및 RecyclerView 에 연결
         adapter = new MyLogAdapter(reviewItemList);
         recycler.setAdapter(adapter);
 
+        // 내 리뷰 목록 불러오기
         loadMyReviews();
 
         return view;
     }
 
+    // 내 리뷰 리스트를 서버에서 불러오는 메소드
     private void loadMyReviews() {
+        // 토큰 가져오기
         Bundle args = getArguments();
         if (args != null) {
             String token = args.getString("token");
             if(token != null) {
+                // 리뷰 리스트를 요청하는 ReviewListRequest
                 JsonObjectRequest req = new ReviewListRequest(
                         token,
                         response -> {
                             try {
                                 JSONArray data = response.getJSONArray("data");
+                                // 기존 리스트 초기화
                                 reviewItemList.clear();
+
+                                // 각 리뷰 아이템 파싱
                                 for (int i = 0; i < data.length(); i++) {
                                     JSONObject obj = data.getJSONObject(i);
                                     String name = obj.getString("restaurantName");
@@ -79,12 +94,14 @@ public class MyLogFragment extends Fragment {
                                         if (imgs.length() > 2) url3 = imgs.getString(2);
                                     }
 
+                                    // ReviewItem 객체로 생성해서 리스트에 추가
                                     reviewItemList.add(new ReviewItem(
                                             name, rating,
                                             url1, url2, url3,
                                             content
                                     ));
                                 }
+                                // RecyclerView 갱신
                                 adapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -94,7 +111,7 @@ public class MyLogFragment extends Fragment {
                             error.printStackTrace();
                         }
                 );
-
+                // 요청 큐에 추가
                 Volley.newRequestQueue(requireContext())
                         .add(req);
             }
